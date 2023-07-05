@@ -8,8 +8,10 @@ const int BUTTON_PIN = 2;
 #line 6 "C:\\Users\\noskn\\Desktop\\Software\\arduino-macro-sequence\\main\\main.ino"
 void setup();
 #line 14 "C:\\Users\\noskn\\Desktop\\Software\\arduino-macro-sequence\\main\\main.ino"
-void updateMainSequence();
-#line 87 "C:\\Users\\noskn\\Desktop\\Software\\arduino-macro-sequence\\main\\main.ino"
+bool secondarySequence();
+#line 35 "C:\\Users\\noskn\\Desktop\\Software\\arduino-macro-sequence\\main\\main.ino"
+bool updateMainSequence();
+#line 130 "C:\\Users\\noskn\\Desktop\\Software\\arduino-macro-sequence\\main\\main.ino"
 void loop();
 #line 6 "C:\\Users\\noskn\\Desktop\\Software\\arduino-macro-sequence\\main\\main.ino"
 void setup()
@@ -20,7 +22,28 @@ void setup()
     pinMode(LED_PIN, OUTPUT);
 }
 
-void updateMainSequence()
+bool secondarySequence()
+{
+    asyncBegin(sec, {
+        asyncRun(sec, {
+            Serial.println("Secondary sequence started");
+        });
+        asyncFor(sec, int, i, 0, i <= 5, i++, {
+            asyncRun(sec, {
+                Serial.print("Secondary running times: ");
+                Serial.println(i);
+            });
+            asyncDelay(sec, 1000);
+        });
+        asyncRun(sec, {
+            Serial.println("Secondary sequence completed");
+            return true;
+        });
+    });
+    return false;
+}
+
+bool updateMainSequence()
 {
     asyncBegin(main, {
         asyncRun(main, {
@@ -64,6 +87,23 @@ void updateMainSequence()
             });
         });
 
+        asyncWhile(main, !secondarySequence(), {
+            asyncRun(main, {
+                // Flash LED while waiting for
+                // the secondary sequence to complete
+                asyncBegin(blink, {
+                    asyncRun(blink, {
+                        digitalWrite(LED_PIN, HIGH);
+                    });
+                    asyncDelay(blink, 500);
+                    asyncRun(blink, {
+                        digitalWrite(LED_PIN, LOW);
+                    });
+                    asyncDelay(blink, 500);
+                });
+            });
+        });
+
         asyncRun(main, {
             Serial.println("Hold the button to exit the loop");
         });
@@ -90,20 +130,39 @@ void updateMainSequence()
         });
 
         asyncDelay(main, 2000);
+
+        asyncRun(main, {
+            return true;
+        });
     });
+    return false;
 }
 
 void loop()
 {
-    updateMainSequence();
+    // Sequence that starts and stops the LED based
+    // on the button state, but it only writes to
+    // the pin when the button changes. This means
+    // it does not interfere with the main sequence's
+    // control of the button when needed.
+    asyncBegin(ledButton, {
+        asyncWhile(ledButton, !digitalRead(BUTTON_PIN), {
+            // Wait for button press
+        });
+        asyncRun(ledButton, {
+            digitalWrite(LED_PIN, HIGH);
+        });
+        asyncWhile(ledButton, digitalRead(BUTTON_PIN), {
+            // Wait for button release
+        });
+        asyncRun(ledButton, {
+            digitalWrite(LED_PIN, LOW);
+        });
+    });
 
-    if (digitalRead(BUTTON_PIN))
+    if (updateMainSequence())
     {
-        digitalWrite(LED_PIN, HIGH);
-    }
-    else
-    {
-        digitalWrite(LED_PIN, LOW);
+        Serial.println("Sequence notified completion");
     }
 }
 

@@ -37,8 +37,8 @@
 #define asyncRun(sequenceName, task) \
     _step(sequenceName)              \
     {                                \
-        task;                        \
         _next(sequenceName);         \
+        task;                        \
     }
 
 #define asyncDelay(sequenceName, delayTime)                     \

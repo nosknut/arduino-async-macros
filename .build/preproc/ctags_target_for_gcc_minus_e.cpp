@@ -12,7 +12,124 @@ void setup()
     pinMode(LED_PIN, 0x1);
 }
 
-void updateMainSequence()
+bool secondarySequence()
+{
+    {
+        static int secSequenceStep = 0;
+        static unsigned long secDelayTimer = 0;
+        int secSequenceCurrentStep = 0;
+        {
+            if (secSequenceStep == secSequenceCurrentStep++)
+            {
+                secSequenceStep++;
+                ;
+                {
+                    Serial.println("Secondary sequence started");
+                };
+            };
+            {
+                static int i;
+                if (secSequenceStep == secSequenceCurrentStep++)
+                {
+                    secSequenceStep++;
+                    ;
+                    {
+                        i = 0;
+                    };
+                };
+                ;
+                {
+                    static int secWhileStartAnchor = 0;
+                    ;
+                    static int secWhileEndAnchor = 0;
+                    ;
+                    secWhileStartAnchor = secSequenceCurrentStep;
+                    if (secSequenceStep == secSequenceCurrentStep++)
+                    {
+                        {
+                            if (i <= 5)
+                            {
+                                secSequenceStep++;
+                                ;
+                            }
+                            else
+                            {
+                                secSequenceStep = secWhileEndAnchor;
+                                ;
+                            }
+                        };
+                    };
+                    {
+                        {
+                            if (secSequenceStep == secSequenceCurrentStep++)
+                            {
+                                secSequenceStep++;
+                                ;
+                                {
+                                    Serial.print("Secondary running times: ");
+                                    Serial.println(i);
+                                };
+                            };
+                            if (secSequenceStep == secSequenceCurrentStep++)
+                            {
+                                secDelayTimer = millis();
+                                secSequenceStep++;
+                                ;
+                            }
+                            if (secSequenceStep == secSequenceCurrentStep++)
+                            {
+                                if ((millis() - secDelayTimer) >= 1000)
+                                {
+                                    secSequenceStep++;
+                                    ;
+                                }
+                            };
+                        };
+                        if (secSequenceStep == secSequenceCurrentStep++)
+                        {
+                            secSequenceStep++;
+                            ;
+                            {
+                                i++;
+                            };
+                        };
+                    };
+                    if (secSequenceStep == secSequenceCurrentStep++)
+                    {
+                        secSequenceStep = secWhileStartAnchor;
+                        ;
+                    }
+                    secWhileEndAnchor = secSequenceCurrentStep;
+                    if (secSequenceStep == secSequenceCurrentStep++)
+                    {
+                        {
+                            secSequenceStep++;
+                            ;
+                        };
+                    };
+                };
+            };
+            if (secSequenceStep == secSequenceCurrentStep++)
+            {
+                secSequenceStep++;
+                ;
+                {
+                    Serial.println("Secondary sequence completed");
+                    return true;
+                };
+            };
+        };
+        if (secSequenceStep == secSequenceCurrentStep)
+        {
+            secSequenceStep = 0;
+        }
+    }
+# 31 "C:\\Users\\noskn\\Desktop\\Software\\arduino-macro-sequence\\main\\main.ino"
+    ;
+    return false;
+}
+
+bool updateMainSequence()
 {
     {
         static int mainSequenceStep = 0;
@@ -21,20 +138,20 @@ void updateMainSequence()
         {
             if (mainSequenceStep == mainSequenceCurrentStep++)
             {
+                mainSequenceStep++;
+                ;
                 {
                     Serial.println("Step 0");
                 };
-                mainSequenceStep++;
-                ;
             };
             static float timesRan;
             if (mainSequenceStep == mainSequenceCurrentStep++)
             {
+                mainSequenceStep++;
+                ;
                 {
                     timesRan = 0;
                 };
-                mainSequenceStep++;
-                ;
             };
             ;
             {
@@ -61,13 +178,13 @@ void updateMainSequence()
                 {
                     if (mainSequenceStep == mainSequenceCurrentStep++)
                     {
+                        mainSequenceStep++;
+                        ;
                         {
                             timesRan += 0.5;
                             Serial.print("Times ran: ");
                             Serial.println(timesRan);
                         };
-                        mainSequenceStep++;
-                        ;
                     };
                     if (mainSequenceStep == mainSequenceCurrentStep++)
                     {
@@ -85,13 +202,13 @@ void updateMainSequence()
                     };
                     if (mainSequenceStep == mainSequenceCurrentStep++)
                     {
+                        mainSequenceStep++;
+                        ;
                         {
                             timesRan += 0.5;
                             Serial.print("Times ran: ");
                             Serial.println(timesRan);
                         };
-                        mainSequenceStep++;
-                        ;
                     };
                     if (mainSequenceStep == mainSequenceCurrentStep++)
                     {
@@ -126,11 +243,11 @@ void updateMainSequence()
                 static int i;
                 if (mainSequenceStep == mainSequenceCurrentStep++)
                 {
+                    mainSequenceStep++;
+                    ;
                     {
                         i = 0;
                     };
-                    mainSequenceStep++;
-                    ;
                 };
                 ;
                 {
@@ -158,11 +275,11 @@ void updateMainSequence()
                         {
                             if (mainSequenceStep == mainSequenceCurrentStep++)
                             {
+                                mainSequenceStep++;
+                                ;
                                 {
                                     Serial.println(i);
                                 };
-                                mainSequenceStep++;
-                                ;
                             };
                             if (mainSequenceStep == mainSequenceCurrentStep++)
                             {
@@ -181,11 +298,11 @@ void updateMainSequence()
                         };
                         if (mainSequenceStep == mainSequenceCurrentStep++)
                         {
+                            mainSequenceStep++;
+                            ;
                             {
                                 i++;
                             };
-                            mainSequenceStep++;
-                            ;
                         };
                     };
                     if (mainSequenceStep == mainSequenceCurrentStep++)
@@ -227,6 +344,8 @@ void updateMainSequence()
                 {
                     if (mainSequenceStep == mainSequenceCurrentStep++)
                     {
+                        mainSequenceStep++;
+                        ;
                         { /* This sub-sequence will run only*/ /* when this while loop is active.*/
                             {
                                 static int printSequenceStep = 0;
@@ -235,11 +354,11 @@ void updateMainSequence()
                                 {
                                     if (printSequenceStep == printSequenceCurrentStep++)
                                     {
+                                        printSequenceStep++;
+                                        ;
                                         {
                                             Serial.println("Waiting for button press");
                                         };
-                                        printSequenceStep++;
-                                        ;
                                     };
                                     if (printSequenceStep == printSequenceCurrentStep++)
                                     {
@@ -262,8 +381,105 @@ void updateMainSequence()
                                 }
                             };
                         };
+                    };
+                };
+                if (mainSequenceStep == mainSequenceCurrentStep++)
+                {
+                    mainSequenceStep = mainWhileStartAnchor;
+                    ;
+                }
+                mainWhileEndAnchor = mainSequenceCurrentStep;
+                if (mainSequenceStep == mainSequenceCurrentStep++)
+                {
+                    {
                         mainSequenceStep++;
                         ;
+                    };
+                };
+            };
+            {
+                static int mainWhileStartAnchor = 0;
+                ;
+                static int mainWhileEndAnchor = 0;
+                ;
+                mainWhileStartAnchor = mainSequenceCurrentStep;
+                if (mainSequenceStep == mainSequenceCurrentStep++)
+                {
+                    {
+                        if (!secondarySequence())
+                        {
+                            mainSequenceStep++;
+                            ;
+                        }
+                        else
+                        {
+                            mainSequenceStep = mainWhileEndAnchor;
+                            ;
+                        }
+                    };
+                };
+                {
+                    if (mainSequenceStep == mainSequenceCurrentStep++)
+                    {
+                        mainSequenceStep++;
+                        ;
+                        { /* Flash LED while waiting for*/ /* the secondary sequence to complete*/
+                            {
+                                static int blinkSequenceStep = 0;
+                                static unsigned long blinkDelayTimer = 0;
+                                int blinkSequenceCurrentStep = 0;
+                                {
+                                    if (blinkSequenceStep == blinkSequenceCurrentStep++)
+                                    {
+                                        blinkSequenceStep++;
+                                        ;
+                                        {
+                                            digitalWrite(LED_PIN, 0x1);
+                                        };
+                                    };
+                                    if (blinkSequenceStep == blinkSequenceCurrentStep++)
+                                    {
+                                        blinkDelayTimer = millis();
+                                        blinkSequenceStep++;
+                                        ;
+                                    }
+                                    if (blinkSequenceStep == blinkSequenceCurrentStep++)
+                                    {
+                                        if ((millis() - blinkDelayTimer) >= 500)
+                                        {
+                                            blinkSequenceStep++;
+                                            ;
+                                        }
+                                    };
+                                    if (blinkSequenceStep == blinkSequenceCurrentStep++)
+                                    {
+                                        blinkSequenceStep++;
+                                        ;
+                                        {
+                                            digitalWrite(LED_PIN, 0x0);
+                                        };
+                                    };
+                                    if (blinkSequenceStep == blinkSequenceCurrentStep++)
+                                    {
+                                        blinkDelayTimer = millis();
+                                        blinkSequenceStep++;
+                                        ;
+                                    }
+                                    if (blinkSequenceStep == blinkSequenceCurrentStep++)
+                                    {
+                                        if ((millis() - blinkDelayTimer) >= 500)
+                                        {
+                                            blinkSequenceStep++;
+                                            ;
+                                        }
+                                    };
+                                };
+                                if (blinkSequenceStep == blinkSequenceCurrentStep)
+                                {
+                                    blinkSequenceStep = 0;
+                                }
+                            };
+                        };
                     };
                 };
                 if (mainSequenceStep == mainSequenceCurrentStep++)
@@ -282,11 +498,11 @@ void updateMainSequence()
             };
             if (mainSequenceStep == mainSequenceCurrentStep++)
             {
+                mainSequenceStep++;
+                ;
                 {
                     Serial.println("Hold the button to exit the loop");
                 };
-                mainSequenceStep++;
-                ;
             };
             if (mainSequenceStep == mainSequenceCurrentStep++)
             {
@@ -326,11 +542,11 @@ void updateMainSequence()
                 {
                     if (mainSequenceStep == mainSequenceCurrentStep++)
                     {
+                        mainSequenceStep++;
+                        ;
                         {
                             Serial.println("Step 2");
                         };
-                        mainSequenceStep++;
-                        ;
                     };
                     if (mainSequenceStep == mainSequenceCurrentStep++)
                     {
@@ -348,11 +564,11 @@ void updateMainSequence()
                     };
                     if (mainSequenceStep == mainSequenceCurrentStep++)
                     {
+                        mainSequenceStep++;
+                        ;
                         {
                             Serial.println("Step 3");
                         };
-                        mainSequenceStep++;
-                        ;
                     };
                     if (mainSequenceStep == mainSequenceCurrentStep++)
                     {
@@ -385,12 +601,12 @@ void updateMainSequence()
             };
             if (mainSequenceStep == mainSequenceCurrentStep++)
             {
+                mainSequenceStep++;
+                ;
                 {
                     Serial.println("Complete!");
                     Serial.println("Restarting ...");
                 };
-                mainSequenceStep++;
-                ;
             };
             if (mainSequenceStep == mainSequenceCurrentStep++)
             {
@@ -406,26 +622,136 @@ void updateMainSequence()
                     ;
                 }
             };
+            if (mainSequenceStep == mainSequenceCurrentStep++)
+            {
+                mainSequenceStep++;
+                ;
+                {
+                    return true;
+                };
+            };
         };
         if (mainSequenceStep == mainSequenceCurrentStep)
         {
             mainSequenceStep = 0;
         }
     }
-# 84 "C:\\Users\\noskn\\Desktop\\Software\\arduino-macro-sequence\\main\\main.ino"
+# 126 "C:\\Users\\noskn\\Desktop\\Software\\arduino-macro-sequence\\main\\main.ino"
     ;
+    return false;
 }
 
 void loop()
 {
-    updateMainSequence();
-
-    if (digitalRead(BUTTON_PIN))
+    // Sequence that starts and stops the LED based
+    // on the button state, but it only writes to
+    // the pin when the button changes. This means
+    // it does not interfere with the main sequence's
+    // control of the button when needed.
     {
-        digitalWrite(LED_PIN, 0x1);
+        static int ledButtonSequenceStep = 0;
+        static unsigned long ledButtonDelayTimer = 0;
+        int ledButtonSequenceCurrentStep = 0;
+        {
+            {
+                static int ledButtonWhileStartAnchor = 0;
+                ;
+                static int ledButtonWhileEndAnchor = 0;
+                ;
+                ledButtonWhileStartAnchor = ledButtonSequenceCurrentStep;
+                if (ledButtonSequenceStep == ledButtonSequenceCurrentStep++)
+                {
+                    {
+                        if (!digitalRead(BUTTON_PIN))
+                        {
+                            ledButtonSequenceStep++;
+                            ;
+                        }
+                        else
+                        {
+                            ledButtonSequenceStep = ledButtonWhileEndAnchor;
+                            ;
+                        }
+                    };
+                };
+                {/* Wait for button press*/};
+                if (ledButtonSequenceStep == ledButtonSequenceCurrentStep++)
+                {
+                    ledButtonSequenceStep = ledButtonWhileStartAnchor;
+                    ;
+                }
+                ledButtonWhileEndAnchor = ledButtonSequenceCurrentStep;
+                if (ledButtonSequenceStep == ledButtonSequenceCurrentStep++)
+                {
+                    {
+                        ledButtonSequenceStep++;
+                        ;
+                    };
+                };
+            };
+            if (ledButtonSequenceStep == ledButtonSequenceCurrentStep++)
+            {
+                ledButtonSequenceStep++;
+                ;
+                {
+                    digitalWrite(LED_PIN, 0x1);
+                };
+            };
+            {
+                static int ledButtonWhileStartAnchor = 0;
+                ;
+                static int ledButtonWhileEndAnchor = 0;
+                ;
+                ledButtonWhileStartAnchor = ledButtonSequenceCurrentStep;
+                if (ledButtonSequenceStep == ledButtonSequenceCurrentStep++)
+                {
+                    {
+                        if (digitalRead(BUTTON_PIN))
+                        {
+                            ledButtonSequenceStep++;
+                            ;
+                        }
+                        else
+                        {
+                            ledButtonSequenceStep = ledButtonWhileEndAnchor;
+                            ;
+                        }
+                    };
+                };
+                {/* Wait for button release*/};
+                if (ledButtonSequenceStep == ledButtonSequenceCurrentStep++)
+                {
+                    ledButtonSequenceStep = ledButtonWhileStartAnchor;
+                    ;
+                }
+                ledButtonWhileEndAnchor = ledButtonSequenceCurrentStep;
+                if (ledButtonSequenceStep == ledButtonSequenceCurrentStep++)
+                {
+                    {
+                        ledButtonSequenceStep++;
+                        ;
+                    };
+                };
+            };
+            if (ledButtonSequenceStep == ledButtonSequenceCurrentStep++)
+            {
+                ledButtonSequenceStep++;
+                ;
+                {
+                    digitalWrite(LED_PIN, 0x0);
+                };
+            };
+        };
+        if (ledButtonSequenceStep == ledButtonSequenceCurrentStep)
+        {
+            ledButtonSequenceStep = 0;
+        }
     }
-    else
+# 150 "C:\\Users\\noskn\\Desktop\\Software\\arduino-macro-sequence\\main\\main.ino"
+    ;
+
+    if (updateMainSequence())
     {
-        digitalWrite(LED_PIN, 0x0);
+        Serial.println("Sequence notified completion");
     }
 }
