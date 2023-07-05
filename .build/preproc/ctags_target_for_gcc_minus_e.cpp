@@ -771,7 +771,7 @@ void loop()
         static int ledButtonSequenceStep = 0;
         static unsigned long ledButtonDelayTimer = 0;
         int ledButtonSequenceCurrentStep = 0;
-        {
+        { /* Wait for button press*/
             {
                 static int ledButtonWhileStartAnchor = 0;
                 ;
@@ -793,7 +793,7 @@ void loop()
                         }
                     };
                 };
-                {/* Wait for button press*/};
+                {};
                 if (ledButtonSequenceStep == ledButtonSequenceCurrentStep++)
                 {
                     ledButtonSequenceStep = ledButtonWhileStartAnchor;
@@ -815,7 +815,21 @@ void loop()
                 {
                     digitalWrite(LED_PIN, 0x1);
                 };
-            };
+            }; /* Debounce delay*/
+            if (ledButtonSequenceStep == ledButtonSequenceCurrentStep++)
+            {
+                ledButtonDelayTimer = millis();
+                ledButtonSequenceStep++;
+                ;
+            }
+            if (ledButtonSequenceStep == ledButtonSequenceCurrentStep++)
+            {
+                if ((millis() - ledButtonDelayTimer) >= 50)
+                {
+                    ledButtonSequenceStep++;
+                    ;
+                }
+            }; /* Wait for button release*/
             {
                 static int ledButtonWhileStartAnchor = 0;
                 ;
@@ -837,7 +851,7 @@ void loop()
                         }
                     };
                 };
-                {/* Wait for button release*/};
+                {};
                 if (ledButtonSequenceStep == ledButtonSequenceCurrentStep++)
                 {
                     ledButtonSequenceStep = ledButtonWhileStartAnchor;
@@ -859,6 +873,20 @@ void loop()
                 {
                     digitalWrite(LED_PIN, 0x0);
                 };
+            }; /* Debounce delay*/
+            if (ledButtonSequenceStep == ledButtonSequenceCurrentStep++)
+            {
+                ledButtonDelayTimer = millis();
+                ledButtonSequenceStep++;
+                ;
+            }
+            if (ledButtonSequenceStep == ledButtonSequenceCurrentStep++)
+            {
+                if ((millis() - ledButtonDelayTimer) >= 50)
+                {
+                    ledButtonSequenceStep++;
+                    ;
+                }
             };
         };
         if (ledButtonSequenceStep == ledButtonSequenceCurrentStep)
@@ -866,7 +894,7 @@ void loop()
             ledButtonSequenceStep = 0;
         }
     }
-# 155 "C:\\Users\\noskn\\Desktop\\Software\\arduino-macro-sequence\\main\\main.ino"
+# 160 "C:\\Users\\noskn\\Desktop\\Software\\arduino-macro-sequence\\main\\main.ino"
     ;
 
     if (updateMainSequence())

@@ -151,18 +151,23 @@ void loop()
     // it does not interfere with the main sequence's
     // control of the button when needed.
     asyncBegin(ledButton, {
-        asyncWhile(ledButton, !digitalRead(BUTTON_PIN), {
-                                                            // Wait for button press
-                                                        });
+        // Wait for button press
+        asyncWhile(ledButton, !digitalRead(BUTTON_PIN), {});
         asyncRun(ledButton, {
             digitalWrite(LED_PIN, HIGH);
         });
-        asyncWhile(ledButton, digitalRead(BUTTON_PIN), {
-                                                           // Wait for button release
-                                                       });
+
+        // Debounce delay
+        asyncDelay(ledButton, 50);
+
+        // Wait for button release
+        asyncWhile(ledButton, digitalRead(BUTTON_PIN), {});
         asyncRun(ledButton, {
             digitalWrite(LED_PIN, LOW);
         });
+
+        // Debounce delay
+        asyncDelay(ledButton, 50);
     });
 
     if (updateMainSequence())
