@@ -423,60 +423,178 @@ bool updateMainSequence()
                     {
                         mainSequenceStep++;
                         ;
-                        { /* Flash LED while waiting for*/ /* the secondary sequence to complete*/
+                        { /* Pulse LED while waiting for*/ /* the secondary sequence to complete*/
                             {
-                                static int blinkSequenceStep = 0;
-                                static unsigned long blinkDelayTimer = 0;
-                                int blinkSequenceCurrentStep = 0;
+                                static int pulseSequenceStep = 0;
+                                static unsigned long pulseDelayTimer = 0;
+                                int pulseSequenceCurrentStep = 0;
                                 {
-                                    if (blinkSequenceStep == blinkSequenceCurrentStep++)
                                     {
-                                        blinkSequenceStep++;
+                                        static int i;
+                                        if (pulseSequenceStep == pulseSequenceCurrentStep++)
+                                        {
+                                            pulseSequenceStep++;
+                                            ;
+                                            {
+                                                i = 0;
+                                            };
+                                        };
                                         ;
                                         {
-                                            digitalWrite(LED_PIN, 0x1);
+                                            static int pulseWhileStartAnchor = 0;
+                                            ;
+                                            static int pulseWhileEndAnchor = 0;
+                                            ;
+                                            pulseWhileStartAnchor = pulseSequenceCurrentStep;
+                                            if (pulseSequenceStep == pulseSequenceCurrentStep++)
+                                            {
+                                                {
+                                                    if (i <= 255)
+                                                    {
+                                                        pulseSequenceStep++;
+                                                        ;
+                                                    }
+                                                    else
+                                                    {
+                                                        pulseSequenceStep = pulseWhileEndAnchor;
+                                                        ;
+                                                    }
+                                                };
+                                            };
+                                            {
+                                                {
+                                                    if (pulseSequenceStep == pulseSequenceCurrentStep++)
+                                                    {
+                                                        pulseSequenceStep++;
+                                                        ;
+                                                        {
+                                                            analogWrite(LED_PIN, i);
+                                                        };
+                                                    };
+                                                    if (pulseSequenceStep == pulseSequenceCurrentStep++)
+                                                    {
+                                                        pulseDelayTimer = millis();
+                                                        pulseSequenceStep++;
+                                                        ;
+                                                    }
+                                                    if (pulseSequenceStep == pulseSequenceCurrentStep++)
+                                                    {
+                                                        if ((millis() - pulseDelayTimer) >= 2)
+                                                        {
+                                                            pulseSequenceStep++;
+                                                            ;
+                                                        }
+                                                    };
+                                                };
+                                                if (pulseSequenceStep == pulseSequenceCurrentStep++)
+                                                {
+                                                    pulseSequenceStep++;
+                                                    ;
+                                                    {
+                                                        i++;
+                                                    };
+                                                };
+                                            };
+                                            if (pulseSequenceStep == pulseSequenceCurrentStep++)
+                                            {
+                                                pulseSequenceStep = pulseWhileStartAnchor;
+                                                ;
+                                            }
+                                            pulseWhileEndAnchor = pulseSequenceCurrentStep;
+                                            if (pulseSequenceStep == pulseSequenceCurrentStep++)
+                                            {
+                                                {
+                                                    pulseSequenceStep++;
+                                                    ;
+                                                };
+                                            };
                                         };
                                     };
-                                    if (blinkSequenceStep == blinkSequenceCurrentStep++)
                                     {
-                                        blinkDelayTimer = millis();
-                                        blinkSequenceStep++;
-                                        ;
-                                    }
-                                    if (blinkSequenceStep == blinkSequenceCurrentStep++)
-                                    {
-                                        if ((millis() - blinkDelayTimer) >= 500)
+                                        static int i;
+                                        if (pulseSequenceStep == pulseSequenceCurrentStep++)
                                         {
-                                            blinkSequenceStep++;
+                                            pulseSequenceStep++;
                                             ;
-                                        }
-                                    };
-                                    if (blinkSequenceStep == blinkSequenceCurrentStep++)
-                                    {
-                                        blinkSequenceStep++;
-                                        ;
-                                        {
-                                            digitalWrite(LED_PIN, 0x0);
+                                            {
+                                                i = 255;
+                                            };
                                         };
-                                    };
-                                    if (blinkSequenceStep == blinkSequenceCurrentStep++)
-                                    {
-                                        blinkDelayTimer = millis();
-                                        blinkSequenceStep++;
                                         ;
-                                    }
-                                    if (blinkSequenceStep == blinkSequenceCurrentStep++)
-                                    {
-                                        if ((millis() - blinkDelayTimer) >= 500)
                                         {
-                                            blinkSequenceStep++;
+                                            static int pulseWhileStartAnchor = 0;
                                             ;
-                                        }
-                                    };
+                                            static int pulseWhileEndAnchor = 0;
+                                            ;
+                                            pulseWhileStartAnchor = pulseSequenceCurrentStep;
+                                            if (pulseSequenceStep == pulseSequenceCurrentStep++)
+                                            {
+                                                {
+                                                    if (i >= 0)
+                                                    {
+                                                        pulseSequenceStep++;
+                                                        ;
+                                                    }
+                                                    else
+                                                    {
+                                                        pulseSequenceStep = pulseWhileEndAnchor;
+                                                        ;
+                                                    }
+                                                };
+                                            };
+                                            {
+                                                {
+                                                    if (pulseSequenceStep == pulseSequenceCurrentStep++)
+                                                    {
+                                                        pulseSequenceStep++;
+                                                        ;
+                                                        {
+                                                            analogWrite(LED_PIN, i);
+                                                        };
+                                                    };
+                                                    if (pulseSequenceStep == pulseSequenceCurrentStep++)
+                                                    {
+                                                        pulseDelayTimer = millis();
+                                                        pulseSequenceStep++;
+                                                        ;
+                                                    }
+                                                    if (pulseSequenceStep == pulseSequenceCurrentStep++)
+                                                    {
+                                                        if ((millis() - pulseDelayTimer) >= 2)
+                                                        {
+                                                            pulseSequenceStep++;
+                                                            ;
+                                                        }
+                                                    };
+                                                };
+                                                if (pulseSequenceStep == pulseSequenceCurrentStep++)
+                                                {
+                                                    pulseSequenceStep++;
+                                                    ;
+                                                    {
+                                                        i--;
+                                                    };
+                                                };
+                                            };
+                                            if (pulseSequenceStep == pulseSequenceCurrentStep++)
+                                            {
+                                                pulseSequenceStep = pulseWhileStartAnchor;
+                                                ;
+                                            }
+                                            pulseWhileEndAnchor = pulseSequenceCurrentStep;
+                                            if (pulseSequenceStep == pulseSequenceCurrentStep++)
+                                            {
+                                                {
+                                                    pulseSequenceStep++;
+                                                    ;
+                                                };
+                                            };
+                                        };
+                                    }
                                 };
-                                if (blinkSequenceStep == blinkSequenceCurrentStep)
+                                if (pulseSequenceStep == pulseSequenceCurrentStep)
                                 {
-                                    blinkSequenceStep = 0;
+                                    pulseSequenceStep = 0;
                                 }
                             };
                         };
@@ -501,6 +619,7 @@ bool updateMainSequence()
                 mainSequenceStep++;
                 ;
                 {
+                    digitalWrite(LED_PIN, 0x0);
                     Serial.println("Hold the button to exit the loop");
                 };
             };
@@ -636,7 +755,7 @@ bool updateMainSequence()
             mainSequenceStep = 0;
         }
     }
-# 126 "C:\\Users\\noskn\\Desktop\\Software\\arduino-macro-sequence\\main\\main.ino"
+# 131 "C:\\Users\\noskn\\Desktop\\Software\\arduino-macro-sequence\\main\\main.ino"
     ;
     return false;
 }
@@ -747,7 +866,7 @@ void loop()
             ledButtonSequenceStep = 0;
         }
     }
-# 150 "C:\\Users\\noskn\\Desktop\\Software\\arduino-macro-sequence\\main\\main.ino"
+# 155 "C:\\Users\\noskn\\Desktop\\Software\\arduino-macro-sequence\\main\\main.ino"
     ;
 
     if (updateMainSequence())

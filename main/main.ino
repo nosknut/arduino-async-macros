@@ -78,22 +78,27 @@ bool updateMainSequence()
 
         asyncWhile(main, !secondarySequence(), {
             asyncRun(main, {
-                // Flash LED while waiting for
+                // Pulse LED while waiting for
                 // the secondary sequence to complete
-                asyncBegin(blink, {
-                    asyncRun(blink, {
-                        digitalWrite(LED_PIN, HIGH);
+                asyncBegin(pulse, {
+                    asyncFor(pulse, int, i, 0, i <= 255, i++, {
+                        asyncRun(pulse, {
+                            analogWrite(LED_PIN, i);
+                        });
+                        asyncDelay(pulse, 2);
                     });
-                    asyncDelay(blink, 500);
-                    asyncRun(blink, {
-                        digitalWrite(LED_PIN, LOW);
-                    });
-                    asyncDelay(blink, 500);
+                    asyncFor(pulse, int, i, 255, i >= 0, i--, {
+                        asyncRun(pulse, {
+                            analogWrite(LED_PIN, i);
+                        });
+                        asyncDelay(pulse, 2);
+                    })
                 });
             });
         });
 
         asyncRun(main, {
+            digitalWrite(LED_PIN, LOW);
             Serial.println("Hold the button to exit the loop");
         });
 
@@ -136,14 +141,14 @@ void loop()
     // control of the button when needed.
     asyncBegin(ledButton, {
         asyncWhile(ledButton, !digitalRead(BUTTON_PIN), {
-            // Wait for button press
-        });
+                                                            // Wait for button press
+                                                        });
         asyncRun(ledButton, {
             digitalWrite(LED_PIN, HIGH);
         });
         asyncWhile(ledButton, digitalRead(BUTTON_PIN), {
-            // Wait for button release
-        });
+                                                           // Wait for button release
+                                                       });
         asyncRun(ledButton, {
             digitalWrite(LED_PIN, LOW);
         });
