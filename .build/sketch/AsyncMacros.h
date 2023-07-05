@@ -2,102 +2,105 @@
 #ifndef SEQUENCE_MACROS_h
 #define SEQUENCE_MACROS_h
 
-#define asyncBegin(sequenceName, task)                                       \
-    {                                                                        \
-        static int sequenceName##SequenceStep = 0;                           \
-        static unsigned long sequenceName##DelayTimer = 0;                   \
-        int sequenceName##SequenceCurrentStep = 0;                           \
-        task;                                                                \
-        if (sequenceName##SequenceStep == sequenceName##SequenceCurrentStep) \
-        {                                                                    \
-            sequenceName##SequenceStep = 0;                                  \
-        }                                                                    \
+#define asyncBegin(task)                                     \
+    {                                                        \
+        static int _asyncSequenceStep = 0;                   \
+        static unsigned long _asyncSequenceDelayTimer = 0;   \
+        int _asyncSequenceCurrentStep = 0;                   \
+        task;                                                \
+                                                             \
+        if (_asyncSequenceStep == _asyncSequenceCurrentStep) \
+        {                                                    \
+            _asyncSequenceStep = 0;                          \
+        }                                                    \
     }
 
-#define _step(sequenceName) \
-    if (sequenceName##SequenceStep == sequenceName##SequenceCurrentStep++)
-
-#define _namedStep(sequenceName, stepAnchor, task)                         \
-    stepAnchor = sequenceName##SequenceCurrentStep;                        \
-    if (sequenceName##SequenceStep == sequenceName##SequenceCurrentStep++) \
-    {                                                                      \
-        task;                                                              \
+// Do not use macros starting with _
+#define _asyncStep(task)                                   \
+    if (_asyncSequenceStep == _asyncSequenceCurrentStep++) \
+    {                                                      \
+        task;                                              \
     }
 
-#define _next(sequenceName) sequenceName##SequenceStep++;
-
-#define _previous(sequenceName) sequenceName##SequenceStep--;
-
-#define _restart(sequenceName) sequenceName##SequenceStep = 0;
-
-#define _goto(sequenceName, goToStep) sequenceName##SequenceStep = goToStep;
-
-#define _createStepAnchor(anchorName) int anchorName = 0;
-
-#define asyncRun(sequenceName, task) \
-    _step(sequenceName)              \
-    {                                \
-        _next(sequenceName);         \
-        task;                        \
+// Do not use macros starting with _
+#define _asyncNamedStep(stepAnchor, task)                  \
+    stepAnchor = _asyncSequenceCurrentStep;                \
+    if (_asyncSequenceStep == _asyncSequenceCurrentStep++) \
+    {                                                      \
+        task;                                              \
     }
 
-#define asyncDelay(sequenceName, delayTime)                     \
-    _step(sequenceName)                                         \
-    {                                                           \
-        sequenceName##DelayTimer = millis();                    \
-        _next(sequenceName);                                    \
-    }                                                           \
-    _step(sequenceName)                                         \
-    {                                                           \
-        if ((millis() - sequenceName##DelayTimer) >= delayTime) \
-        {                                                       \
-            _next(sequenceName);                                \
-        }                                                       \
-    }
+// Do not use macros starting with _
+#define _asyncNext() _asyncSequenceStep++;
 
-#define asyncWhile(sequenceName, condition, task)                  \
-    {                                                              \
-        static _createStepAnchor(sequenceName##WhileStartAnchor);  \
-        static _createStepAnchor(sequenceName##WhileEndAnchor);    \
-                                                                   \
-        _namedStep(sequenceName, sequenceName##WhileStartAnchor, { \
-            if (condition)                                         \
-            {                                                      \
-                _next(sequenceName);                               \
-            }                                                      \
-            else                                                   \
-            {                                                      \
-                _goto(sequenceName, sequenceName##WhileEndAnchor); \
-            }                                                      \
-        });                                                        \
-                                                                   \
-        task;                                                      \
-                                                                   \
-        _step(sequenceName)                                        \
-        {                                                          \
-            _goto(sequenceName, sequenceName##WhileStartAnchor);   \
-        }                                                          \
-                                                                   \
-        _namedStep(sequenceName, sequenceName##WhileEndAnchor, {   \
-            _next(sequenceName);                                   \
-        });                                                        \
-    }
+// Do not use macros starting with _
+#define _asyncGoto(goToStep) _asyncSequenceStep = goToStep;
 
-#define asyncFor(sequenceName, variableType, variableName, initialValue, condition, increment, task) \
-    {                                                                                                \
-        asyncVariable(sequenceName, variableType, variableName, initialValue);                       \
-        asyncWhile(sequenceName, condition, {                                                        \
-            task;                                                                                    \
-            asyncRun(sequenceName, {                                                                 \
-                increment;                                                                           \
-            });                                                                                      \
-        });                                                                                          \
-    }
+// Do not use macros starting with _
+#define _asyncCreateStepAnchor(anchorName) int anchorName = 0;
 
-#define asyncVariable(sequenceName, variableType, variableName, initialValue) \
-    static variableType variableName;                                         \
-    asyncRun(sequenceName, {                                                  \
-        variableName = initialValue;                                          \
+#define asyncRun(task) \
+    _asyncStep({       \
+        _asyncNext();  \
+        task;          \
     });
+
+#define asyncDelay(delayTime)                                   \
+    _asyncStep({                                                \
+        _asyncSequenceDelayTimer = millis();                    \
+        _asyncNext();                                           \
+    });                                                         \
+                                                                \
+    _asyncStep({                                                \
+        if ((millis() - _asyncSequenceDelayTimer) >= delayTime) \
+        {                                                       \
+            _asyncNext();                                       \
+        }                                                       \
+    });
+
+#define asyncVariable(variableType, variableName, initialValue) \
+    static variableType variableName;                           \
+    asyncRun({                                                  \
+        variableName = initialValue;                            \
+    });
+
+#define asyncWhile(condition, task)                      \
+    {                                                    \
+        static _asyncCreateStepAnchor(WhileStartAnchor); \
+        static _asyncCreateStepAnchor(WhileEndAnchor);   \
+                                                         \
+        _asyncNamedStep(WhileStartAnchor, {              \
+            if (condition)                               \
+            {                                            \
+                _asyncNext();                            \
+            }                                            \
+            else                                         \
+            {                                            \
+                _asyncGoto(WhileEndAnchor);              \
+            }                                            \
+        });                                              \
+                                                         \
+        task;                                            \
+                                                         \
+        _asyncStep({                                     \
+            _asyncGoto(WhileStartAnchor);                \
+        });                                              \
+                                                         \
+        _asyncNamedStep(WhileEndAnchor, {                \
+            _asyncNext();                                \
+        });                                              \
+    }
+
+#define asyncFor(variableType, variableName, initialValue, condition, increment, task) \
+    {                                                                                  \
+        asyncVariable(variableType, variableName, initialValue);                       \
+        asyncWhile(condition, {                                                        \
+            task;                                                                      \
+                                                                                       \
+            asyncRun({                                                                 \
+                increment;                                                             \
+            });                                                                        \
+        });                                                                            \
+    }
 
 #endif

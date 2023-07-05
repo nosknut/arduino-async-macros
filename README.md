@@ -6,7 +6,7 @@ A zero cost abstraction for asynchronous arduino code without using threads or c
 
 - [Before preprocessor](main/main.ino)
 - [After preprocessor](.build/preproc/ctags_target_for_gcc_minus_e.cpp)
-    - NB! The extra semicolons in the preprocessor output are just there to make auto-formatters happy. They should not have any affect on the code.
+  - NB! The extra semicolons in the preprocessor output are just there to make auto-formatters happy. They should not have any affect on the code.
 
 ## Pros
 
@@ -25,46 +25,46 @@ A zero cost abstraction for asynchronous arduino code without using threads or c
 ```cpp
 void updateMainSequence()
 {
-    asyncBegin(main, {
-        asyncRun(main, {
+    asyncBegin({
+        asyncRun({
             Serial.println("Step 0");
         });
 
-        asyncDelay(main, 1000);
+        asyncDelay(1000);
 
-        asyncRun(main, {
+        asyncRun({
             Serial.println("Step 1");
         });
 
-        asyncDelay(main, 1000);
+        asyncDelay(1000);
 
-        asyncVariable(main, float, timesRan, 0);
+        asyncVariable(float, timesRan, 0);
 
-        asyncWhile(main, timesRan < 10, {
-            asyncRun(main, {
+        asyncWhile(timesRan < 10, {
+            asyncRun({
                 timesRan += 0.5;
                 Serial.print("Times ran: ");
                 Serial.println(timesRan);
             });
-            asyncDelay(main, 500);
+            asyncDelay(500);
         });
 
-        asyncFor(main, int, i, 0, i <= 5, i++, {
-            asyncRun(main, {
+        asyncFor(int, i, 0, i <= 5, i++, {
+            asyncRun({
                 Serial.println(i);
             });
-            asyncDelay(main, 1000);
+            asyncDelay(1000);
         });
 
-        asyncWhile(main, !digitalRead(BUTTON_PIN), {
-            asyncRun(main, {
+        asyncWhile(!digitalRead(BUTTON_PIN), {
+            asyncRun({
                 // This sub-sequence will run only
                 // when this while loop is active.
-                asyncBegin(print, {
-                    asyncRun(print, {
+                asyncBegin({
+                    asyncRun({
                         Serial.println("Waiting for button press");
                     });
-                    asyncDelay(print, 1000);
+                    asyncDelay(1000);
                 });
             });
         });
