@@ -10,6 +10,7 @@ Can contain:
 - asyncVariable
 - asyncWhile
 - asyncFor
+- asyncWhileDuration
 */
 #define asyncBegin(task)                                     \
     {                                                        \
@@ -96,14 +97,15 @@ Can contain:
 
 /*
 A regular while-loop
+Condition can be:
+- regular code
 Can contain:
 - asyncRun
 - asyncDelay
 - asyncVariable
 - asyncWhile
 - asyncFor
-Condition can be:
-- regular code
+- asyncWhileDuration
 */
 #define asyncWhile(condition, task)                     \
     /*////////////////////////////////////*/            \
@@ -156,6 +158,7 @@ Can contain:
 - asyncVariable
 - asyncWhile
 - asyncFor
+- asyncWhileDuration
 */
 #define asyncFor(variableType, variableName, initialValue, condition, increment, task) \
     /*////////////////////////////////////*/                                           \
@@ -195,6 +198,7 @@ Can contain:
 - asyncVariable
 - asyncWhile
 - asyncFor
+- asyncWhileDuration
 Condition can be:
 - regular code
 */

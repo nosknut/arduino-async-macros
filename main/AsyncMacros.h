@@ -61,7 +61,7 @@ Can contain:
 /*
 Runs regular code
 Can contain:
-- asyncBegin
+- asyncBegin (when inside an asyncWhile that contains no delays)
 - regular code
 */
 #define asyncRun(task) \
@@ -70,6 +70,7 @@ Can contain:
         task;          \
     });
 
+// Delays the sequence for a given amount of time
 #define asyncDelay(delayTime)                                   \
     /*////////////////////////////////////*/                    \
     /*/////////// Begin delay ////////////*/                    \
@@ -88,6 +89,8 @@ Can contain:
     /*//////////// End delay /////////////*/                    \
     /*////////////////////////////////////*/
 
+// Creates a variable that behaves like a regular local
+// variable throughout a run of the sequence.
 #define asyncVariable(variableType, variableName, initialValue) \
     static variableType variableName;                           \
     asyncRun({                                                  \

@@ -2,6 +2,8 @@
 
 A zero cost abstraction for asynchronous arduino code without using threads or complex switch statements.
 
+Check out the [API docs](api.md) for a more detailed breakdown of the different functions.
+
 ## Results
 
 - [Before preprocessor](main/main.ino)
@@ -17,6 +19,7 @@ A zero cost abstraction for asynchronous arduino code without using threads or c
 - IDE compiler error highlighting is broken
   - Any bugs will be fed through the macro, and so the
     only way to see errors is in the compiler logs.
+
 
 ## Example
 
