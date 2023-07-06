@@ -11,7 +11,7 @@ void setup();
 bool secondarySequence();
 #line 35 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
 bool updateMainSequence();
-#line 135 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
+#line 147 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
 void loop();
 #line 6 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
 void setup()
@@ -106,6 +106,18 @@ bool updateMainSequence()
                     })
                 });
             });
+        });
+
+        // Flash for 5 seconds
+        asyncWhileDuration(5000, {
+            asyncRun({
+                digitalWrite(LED_PIN, HIGH);
+            });
+            asyncDelay(1000);
+            asyncRun({
+                digitalWrite(LED_PIN, LOW);
+            });
+            asyncDelay(1000);
         });
 
         asyncRun({

@@ -13,23 +13,29 @@ Can contain:
 */
 #define asyncBegin(task)                                     \
     {                                                        \
+        /*////////////////////////////////////*/             \
+        /*////////// Begin sequence //////////*/             \
+        /*////////////////////////////////////*/             \
         static int _asyncSequenceStep = 0;                   \
         static unsigned long _asyncSequenceDelayTimer = 0;   \
         int _asyncSequenceCurrentStep = 0;                   \
                                                              \
         /*////////////////////////////////////*/             \
-        /*////////// Begin sequence //////////*/             \
+        /*//////// Begin sequence steps //////*/             \
         /*////////////////////////////////////*/             \
         task;                                                \
         /*////////////////////////////////////*/             \
-        /*/////////// End sequence ///////////*/             \
+        /*//////// End sequences steps ///////*/             \
         /*////////////////////////////////////*/             \
                                                              \
         if (_asyncSequenceStep == _asyncSequenceCurrentStep) \
         {                                                    \
             _asyncSequenceStep = 0;                          \
         }                                                    \
-    }
+    }                                                        \
+    /*////////////////////////////////////*/                 \
+    /*/////////// End sequence ///////////*/                 \
+    /*////////////////////////////////////*/
 
 // Do not use this, or any other async macro starting with _
 #define _asyncStep(task)                                   \
@@ -99,43 +105,43 @@ Can contain:
 Condition can be:
 - regular code
 */
-#define asyncWhile(condition, task)               \
-    /*////////////////////////////////////*/      \
-    /*///////// Begin while-loop /////////*/      \
-    /*////////////////////////////////////*/      \
-    {                                             \
-        _asyncCreateStepAnchor(WhileStartAnchor); \
-        _asyncCreateStepAnchor(WhileEndAnchor);   \
-                                                  \
-        _asyncNamedStep(WhileStartAnchor, {       \
-            if (condition)                        \
-            {                                     \
-                _asyncNext();                     \
-            }                                     \
-            else                                  \
-            {                                     \
-                _asyncGoto(WhileEndAnchor);       \
-            }                                     \
-        });                                       \
-                                                  \
-        /*////////////////////////////////////*/  \
-        /*////// Begin while-loop task ///////*/  \
-        /*////////////////////////////////////*/  \
-        task;                                     \
-        /*////////////////////////////////////*/  \
-        /*/////// End while-loop task ////////*/  \
-        /*////////////////////////////////////*/  \
-                                                  \
-        _asyncStep({                              \
-            _asyncGoto(WhileStartAnchor);         \
-        });                                       \
-                                                  \
-        _asyncNamedStep(WhileEndAnchor, {         \
-            _asyncNext();                         \
-        });                                       \
-    }                                             \
-    /*////////////////////////////////////*/      \
-    /*////////// End while-loop //////////*/      \
+#define asyncWhile(condition, task)                     \
+    /*////////////////////////////////////*/            \
+    /*///////// Begin while-loop /////////*/            \
+    /*////////////////////////////////////*/            \
+    {                                                   \
+        _asyncCreateStepAnchor(_asyncWhileStartAnchor); \
+        _asyncCreateStepAnchor(_asyncWhileEndAnchor);   \
+                                                        \
+        _asyncNamedStep(_asyncWhileStartAnchor, {       \
+            if (condition)                              \
+            {                                           \
+                _asyncNext();                           \
+            }                                           \
+            else                                        \
+            {                                           \
+                _asyncGoto(_asyncWhileEndAnchor);       \
+            }                                           \
+        });                                             \
+                                                        \
+        /*////////////////////////////////////*/        \
+        /*////// Begin while-loop task ///////*/        \
+        /*////////////////////////////////////*/        \
+        task;                                           \
+        /*////////////////////////////////////*/        \
+        /*/////// End while-loop task ////////*/        \
+        /*////////////////////////////////////*/        \
+                                                        \
+        _asyncStep({                                    \
+            _asyncGoto(_asyncWhileStartAnchor);         \
+        });                                             \
+                                                        \
+        _asyncNamedStep(_asyncWhileEndAnchor, {         \
+            _asyncNext();                               \
+        });                                             \
+    }                                                   \
+    /*////////////////////////////////////*/            \
+    /*////////// End while-loop //////////*/            \
     /*////////////////////////////////////*/
 
 /*
@@ -176,7 +182,13 @@ Can contain:
     /*////////////////////////////////////*/
 
 /*
-A while loop that runs for a given duration
+A while loop that runs for a given duration.
+
+The contents of the loop will always run to the end,
+meaning if the duration is 1.5 sec and there is a 1 sec
+delay in the loop, the loop will run for 2 sec since it
+would end up running 2x1 sec delays.
+
 Can contain:
 - asyncRun
 - asyncDelay
@@ -186,18 +198,21 @@ Can contain:
 Condition can be:
 - regular code
 */
-#define asyncRunFor(duration, task)                                 \
-    /*////////////////////////////////////*/                        \
-    /*//////// Begin run-for-loop ////////*/                        \
-    /*////////////////////////////////////*/                        \
-    asyncRun({                                                      \
-        _asyncSequenceDelayTimer = millis();                        \
-    });                                                             \
-    asyncWhile((millis() - _asyncSequenceDelayTimer) < delayTime, { \
-        task;                                                       \
-    });                                                             \
-    /*////////////////////////////////////*/                        \
-    /*///////// End run-for-loop /////////*/                        \
+#define asyncWhileDuration(duration, task)                                     \
+    /*////////////////////////////////////*/                                   \
+    /*///// Begin while-duration-loop ////*/                                   \
+    /*////////////////////////////////////*/                                   \
+    {                                                                          \
+        asyncVariable(unsigned long, _asyncSequenceWhileDurationTimer, 0);     \
+        asyncRun({                                                             \
+            _asyncSequenceWhileDurationTimer = millis();                       \
+        });                                                                    \
+        asyncWhile((millis() - _asyncSequenceWhileDurationTimer) < duration, { \
+            task;                                                              \
+        });                                                                    \
+    }                                                                          \
+    /*////////////////////////////////////*/                                   \
+    /*////// End while-duration-loop /////*/                                   \
     /*////////////////////////////////////*/
 
 // #endif

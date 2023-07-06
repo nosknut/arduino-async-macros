@@ -97,6 +97,18 @@ bool updateMainSequence()
             });
         });
 
+        // Flash for 5 seconds
+        asyncWhileDuration(5000, {
+            asyncRun({
+                digitalWrite(LED_PIN, HIGH);
+            });
+            asyncDelay(1000);
+            asyncRun({
+                digitalWrite(LED_PIN, LOW);
+            });
+            asyncDelay(1000);
+        });
+
         asyncRun({
             digitalWrite(LED_PIN, LOW);
             Serial.println("Hold the button to exit the loop");
