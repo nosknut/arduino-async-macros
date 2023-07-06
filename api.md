@@ -32,7 +32,7 @@ Runs regular code
 
 Can contain:
 
-- `asyncBegin` (when inside an asyncWhile that contains no delays)
+- `asyncBegin` (when inside an `asyncWhile` that contains no `asyncDelay`s)
 - regular code
 
 ### Example
