@@ -1,5 +1,5 @@
-// #ifndef SEQUENCE_MACROS_h
-// #define SEQUENCE_MACROS_h
+#ifndef SEQUENCE_MACROS_h
+#define SEQUENCE_MACROS_h
 
 /*
 Creates an async context to keep track of what code should run
@@ -221,4 +221,4 @@ Condition can be:
     /*////// End while-duration-loop /////*/                                   \
     /*////////////////////////////////////*/
 
-// #endif
+#endif

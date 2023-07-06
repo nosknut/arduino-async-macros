@@ -1,6 +1,6 @@
 #line 1 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\AsyncMacros.h"
-// #ifndef SEQUENCE_MACROS_h
-// #define SEQUENCE_MACROS_h
+#ifndef SEQUENCE_MACROS_h
+#define SEQUENCE_MACROS_h
 
 /*
 Creates an async context to keep track of what code should run
@@ -62,7 +62,7 @@ Can contain:
 /*
 Runs regular code
 Can contain:
-- asyncBegin
+- asyncBegin (when inside an asyncWhile that contains no delays)
 - regular code
 */
 #define asyncRun(task) \
@@ -71,6 +71,7 @@ Can contain:
         task;          \
     });
 
+// Delays the sequence for a given amount of time
 #define asyncDelay(delayTime)                                   \
     /*////////////////////////////////////*/                    \
     /*/////////// Begin delay ////////////*/                    \
@@ -89,6 +90,8 @@ Can contain:
     /*//////////// End delay /////////////*/                    \
     /*////////////////////////////////////*/
 
+// Creates a variable that behaves like a regular local
+// variable throughout a run of the sequence.
 #define asyncVariable(variableType, variableName, initialValue) \
     static variableType variableName;                           \
     asyncRun({                                                  \
@@ -219,4 +222,4 @@ Condition can be:
     /*////// End while-duration-loop /////*/                                   \
     /*////////////////////////////////////*/
 
-// #endif
+#endif
