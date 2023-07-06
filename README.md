@@ -23,8 +23,6 @@ Check out the [API docs](api.md) for a more detailed breakdown of the different 
 
 ## Example
 
-`main` and `print` are unique handles for each sequence. This allows for nesting of async sequences.
-
 ```cpp
 void updateMainSequence()
 {
