@@ -1,19 +1,19 @@
 #include <Arduino.h>
-#line 1 "C:\\Users\\noskn\\Desktop\\Software\\arduino-macro-sequence\\main\\main.ino"
+#line 1 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
 #include "AsyncMacros.h"
 
 const int LED_PIN = 5;
 const int BUTTON_PIN = 2;
 
-#line 6 "C:\\Users\\noskn\\Desktop\\Software\\arduino-macro-sequence\\main\\main.ino"
+#line 6 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
 void setup();
-#line 14 "C:\\Users\\noskn\\Desktop\\Software\\arduino-macro-sequence\\main\\main.ino"
+#line 14 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
 bool secondarySequence();
-#line 35 "C:\\Users\\noskn\\Desktop\\Software\\arduino-macro-sequence\\main\\main.ino"
+#line 35 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
 bool updateMainSequence();
-#line 135 "C:\\Users\\noskn\\Desktop\\Software\\arduino-macro-sequence\\main\\main.ino"
+#line 135 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
 void loop();
-#line 6 "C:\\Users\\noskn\\Desktop\\Software\\arduino-macro-sequence\\main\\main.ino"
+#line 6 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
 void setup()
 {
     Serial.begin(9600);
