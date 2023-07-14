@@ -41,6 +41,26 @@ bool updateMainSequence()
 
         asyncDelay(2000);
 
+        asyncIf(digitalRead(BUTTON_PIN), {
+            asyncRun({
+                Serial.println("Button is pressed");
+            });
+        });
+
+        asyncDelay(2000);
+
+        asyncIfElse(digitalRead(BUTTON_PIN), {
+            asyncRun({
+                Serial.println("Button is pressed");
+            });
+        }, {
+            asyncRun({
+                Serial.println("Button is not pressed");
+            });
+        });
+
+        asyncDelay(2000);
+
         asyncWhile(true, {
             asyncRun({
                 if (digitalRead(BUTTON_PIN))

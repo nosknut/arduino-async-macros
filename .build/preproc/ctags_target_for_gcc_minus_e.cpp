@@ -221,6 +221,208 @@ bool updateMainSequence()
                     }
                 };
             }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+            ; /*////////////////////////////////////*/ /*/////// Begin if-else-statement ////*/  /*////////////////////////////////////*/
+            {
+                static bool _asyncIfCondition;
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        _asyncSequenceStep++;
+                        ;
+                        {
+                            _asyncIfCondition = digitalRead(BUTTON_PIN);
+                        };
+                    };
+                };
+                ;
+                ;
+                static int _asyncElseStartAnchor = 0;
+                ;
+                static int _asyncElseEndAnchor = 0;
+                ;
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        if (_asyncIfCondition)
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                        }
+                        else
+                        {
+                            _asyncSequenceStep = _asyncElseStartAnchor;
+                            ;
+                        }
+                    };
+                }; /*////////////////////////////////////*/ /*////// Begin if-statement task /////*/ /*////////////////////////////////////*/
+                {
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                            {
+                                Serial.println("Button is pressed");
+                            };
+                        };
+                    };
+                    ;
+                }; /*////////////////////////////////////*/ /*/////// End if-statement task //////*/ /*////////////////////////////////////*/
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        _asyncSequenceStep = _asyncElseEndAnchor;
+                        ;
+                    };
+                };
+                _asyncElseStartAnchor = _asyncSequenceCurrentStep;
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        _asyncSequenceStep++;
+                        ;
+                    };
+                };
+                ; /*////////////////////////////////////*/ /*////// Begin else-statement task ///*/                                                  /*////////////////////////////////////*/
+                {/* empty because this is only an id-statement*/}; /*////////////////////////////////////*/ /*/////// End else-statement task ////*/ /*////////////////////////////////////*/
+                _asyncElseEndAnchor = _asyncSequenceCurrentStep;
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        _asyncSequenceStep++;
+                        ;
+                    };
+                };
+                ;
+            } /*////////////////////////////////////*/ /*//////// End if-else-statement /////*/ /*////////////////////////////////////*/; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
+            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+            {
+                {
+                    _asyncSequenceStep++;
+                    ;
+                    {
+                        _asyncSequenceDelayTimer = millis();
+                    };
+                };
+            };
+            ;
+            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+            {
+                {
+                    if ((millis() - _asyncSequenceDelayTimer) >= 2000)
+                    {
+                        _asyncSequenceStep++;
+                        ;
+                    }
+                };
+            }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+            ; /*////////////////////////////////////*/ /*/////// Begin if-else-statement ////*/  /*////////////////////////////////////*/
+            {
+                static bool _asyncIfCondition;
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        _asyncSequenceStep++;
+                        ;
+                        {
+                            _asyncIfCondition = digitalRead(BUTTON_PIN);
+                        };
+                    };
+                };
+                ;
+                ;
+                static int _asyncElseStartAnchor = 0;
+                ;
+                static int _asyncElseEndAnchor = 0;
+                ;
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        if (_asyncIfCondition)
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                        }
+                        else
+                        {
+                            _asyncSequenceStep = _asyncElseStartAnchor;
+                            ;
+                        }
+                    };
+                }; /*////////////////////////////////////*/ /*////// Begin if-statement task /////*/ /*////////////////////////////////////*/
+                {
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                            {
+                                Serial.println("Button is pressed");
+                            };
+                        };
+                    };
+                    ;
+                }; /*////////////////////////////////////*/ /*/////// End if-statement task //////*/ /*////////////////////////////////////*/
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        _asyncSequenceStep = _asyncElseEndAnchor;
+                        ;
+                    };
+                };
+                _asyncElseStartAnchor = _asyncSequenceCurrentStep;
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        _asyncSequenceStep++;
+                        ;
+                    };
+                };
+                ; /*////////////////////////////////////*/ /*////// Begin else-statement task ///*/ /*////////////////////////////////////*/
+                {
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                            {
+                                Serial.println("Button is not pressed");
+                            };
+                        };
+                    };
+                    ;
+                }; /*////////////////////////////////////*/ /*/////// End else-statement task ////*/ /*////////////////////////////////////*/
+                _asyncElseEndAnchor = _asyncSequenceCurrentStep;
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        _asyncSequenceStep++;
+                        ;
+                    };
+                };
+                ;
+            } /*////////////////////////////////////*/ /*//////// End if-else-statement /////*/ /*////////////////////////////////////*/; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
+            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+            {
+                {
+                    _asyncSequenceStep++;
+                    ;
+                    {
+                        _asyncSequenceDelayTimer = millis();
+                    };
+                };
+            };
+            ;
+            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+            {
+                {
+                    if ((millis() - _asyncSequenceDelayTimer) >= 2000)
+                    {
+                        _asyncSequenceStep++;
+                        ;
+                    }
+                };
+            }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
             ; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/  /*////////////////////////////////////*/
             {
                 static int _asyncWhileStartAnchor = 0;
@@ -1448,7 +1650,7 @@ bool updateMainSequence()
             _asyncSequenceStep = 0;
         }
     } /*////////////////////////////////////*/ /*/////////// End sequence ///////////*/ /*////////////////////////////////////*/
-# 176 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
+# 196 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
     ;
     return false;
 }
@@ -1617,7 +1819,7 @@ void loop()
             _asyncSequenceStep = 0;
         }
     } /*////////////////////////////////////*/ /*/////////// End sequence ///////////*/ /*////////////////////////////////////*/
-# 205 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
+# 225 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
     ;
 
     if (updateMainSequence())

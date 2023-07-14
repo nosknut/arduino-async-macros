@@ -11,6 +11,8 @@ Can contain:
 - asyncWhile
 - asyncFor
 - asyncWhileDuration
+- asyncIf
+- asyncIfElse
 */
 #define asyncBegin(task)                                     \
     {                                                        \
@@ -101,6 +103,90 @@ Can contain:
     });
 
 /*
+A regular if-else-statement
+Condition can be:
+- regular code
+Can contain:
+- asyncRun
+- asyncDelay
+- asyncVariable
+- asyncWhile
+- asyncFor
+- asyncWhileDuration
+- asyncIf
+- asyncIfElse
+*/
+#define asyncIfElse(condition, ifTask, elseTask)           \
+    /*////////////////////////////////////*/               \
+    /*/////// Begin if-else-statement ////*/               \
+    /*////////////////////////////////////*/               \
+    {                                                      \
+        asyncVariable(bool, _asyncIfCondition, condition); \
+                                                           \
+        _asyncCreateStepAnchor(_asyncElseStartAnchor);     \
+        _asyncCreateStepAnchor(_asyncElseEndAnchor);       \
+                                                           \
+        _asyncStep({                                       \
+            if (_asyncIfCondition)                         \
+            {                                              \
+                _asyncNext();                              \
+            }                                              \
+            else                                           \
+            {                                              \
+                _asyncGoto(_asyncElseStartAnchor);         \
+            }                                              \
+        });                                                \
+                                                           \
+        /*////////////////////////////////////*/           \
+        /*////// Begin if-statement task /////*/           \
+        /*////////////////////////////////////*/           \
+        ifTask;                                            \
+        /*////////////////////////////////////*/           \
+        /*/////// End if-statement task //////*/           \
+        /*////////////////////////////////////*/           \
+                                                           \
+        _asyncStep({                                       \
+            _asyncGoto(_asyncElseEndAnchor);               \
+        });                                                \
+                                                           \
+        _asyncNamedStep(_asyncElseStartAnchor, {           \
+            _asyncNext();                                  \
+        });                                                \
+                                                           \
+        /*////////////////////////////////////*/           \
+        /*////// Begin else-statement task ///*/           \
+        /*////////////////////////////////////*/           \
+        elseTask;                                          \
+        /*////////////////////////////////////*/           \
+        /*/////// End else-statement task ////*/           \
+        /*////////////////////////////////////*/           \
+                                                           \
+        _asyncNamedStep(_asyncElseEndAnchor, {             \
+            _asyncNext();                                  \
+        });                                                \
+    }                                                      \
+    /*////////////////////////////////////*/               \
+    /*//////// End if-else-statement /////*/               \
+    /*////////////////////////////////////*/
+
+/*
+A regular if-statement
+Condition can be:
+- regular code
+Can contain:
+- asyncRun
+- asyncDelay
+- asyncVariable
+- asyncWhile
+- asyncFor
+- asyncWhileDuration
+- asyncIf
+- asyncIfElse
+*/
+#define asyncIf(condition, ifTask) \
+    asyncIfElse(condition, ifTask, {/* empty because this is only an id-statement*/})
+
+/*
 A regular while-loop
 Condition can be:
 - regular code
@@ -111,6 +197,8 @@ Can contain:
 - asyncWhile
 - asyncFor
 - asyncWhileDuration
+- asyncIf
+- asyncIfElse
 */
 #define asyncWhile(condition, task)                     \
     /*////////////////////////////////////*/            \
@@ -186,6 +274,8 @@ Can contain:
 - asyncWhile
 - asyncFor
 - asyncWhileDuration
+- asyncIf
+- asyncIfElse
 */
 #define asyncFor(variableType, variableName, initialValue, condition, increment, task) \
     /*////////////////////////////////////*/                                           \
@@ -239,6 +329,8 @@ Can contain:
 - asyncWhile
 - asyncFor
 - asyncWhileDuration
+- asyncIf
+- asyncIfElse
 Condition can be:
 - regular code
 */

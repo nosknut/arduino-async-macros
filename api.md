@@ -14,6 +14,8 @@ Can contain:
 - `asyncWhile`
 - `asyncFor`
 - `asyncWhileDuration`
+- `asyncIf`
+- `asyncIfElse`
 
 ### Example
 
@@ -114,6 +116,8 @@ Can contain:
 - `asyncWhile`
 - `asyncFor`
 - `asyncWhileDuration`
+- `asyncIf`
+- `asyncIfElse`
 
 ### Example: Blocking wait
 
@@ -177,6 +181,8 @@ Can contain:
 - `asyncWhile`
 - `asyncFor`
 - `asyncWhileDuration`
+- `asyncIf`
+- `asyncIfElse`
 
 ### Example
 
@@ -213,6 +219,8 @@ Can contain:
 - `asyncWhile`
 - `asyncFor`
 - `asyncWhileDuration`
+- `asyncIf`
+- `asyncIfElse`
 
 Condition can be:
 
@@ -297,5 +305,79 @@ asyncBegin({
         });
         asyncDelay(1000);
     });
+});
+```
+
+## `asyncIf`
+
+A regular if-statement
+
+Condition can be:
+
+- regular code
+
+Can contain:
+
+- `asyncRun`
+- `asyncDelay`
+- `asyncVariable`
+- `asyncWhile`
+- `asyncFor`
+- `asyncWhileDuration`
+- `asyncIf`
+- `asyncIfElse`
+
+### Example
+
+```cpp
+asyncBegin({
+    asyncRun({
+        Serial.println("Hello World");
+    });
+    asyncIf(digitalRead(BUTTON_PIN), {
+        asyncRun({
+            Serial.println("Button is pressed");
+        });
+    });
+    asyncDelay(1000);
+});
+```
+
+## `asyncIfElse`
+
+A regular if-else-statement
+
+Condition can be:
+
+- regular code
+
+Can contain:
+
+- `asyncRun`
+- `asyncDelay`
+- `asyncVariable`
+- `asyncWhile`
+- `asyncFor`
+- `asyncWhileDuration`
+- `asyncIf`
+- `asyncIfElse`
+
+### Example
+
+```cpp
+asyncBegin({
+    asyncRun({
+        Serial.println("Hello World");
+    });
+    asyncIfElse(digitalRead(BUTTON_PIN), {
+        asyncRun({
+            Serial.println("Button is pressed");
+        });
+    }, {
+        asyncRun({
+            Serial.println("Button is not pressed");
+        });
+    });
+    asyncDelay(1000);
 });
 ```

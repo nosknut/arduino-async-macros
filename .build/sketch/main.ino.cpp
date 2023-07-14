@@ -11,7 +11,7 @@ void setup();
 bool secondarySequence();
 #line 35 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
 bool updateMainSequence();
-#line 180 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
+#line 200 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
 void loop();
 #line 6 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
 void setup()
@@ -48,6 +48,26 @@ bool updateMainSequence()
     asyncBegin({
         asyncRun({
             Serial.println("Step 0");
+        });
+
+        asyncDelay(2000);
+
+        asyncIf(digitalRead(BUTTON_PIN), {
+            asyncRun({
+                Serial.println("Button is pressed");
+            });
+        });
+
+        asyncDelay(2000);
+
+        asyncIfElse(digitalRead(BUTTON_PIN), {
+            asyncRun({
+                Serial.println("Button is pressed");
+            });
+        }, {
+            asyncRun({
+                Serial.println("Button is not pressed");
+            });
         });
 
         asyncDelay(2000);
