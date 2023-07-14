@@ -43,6 +43,19 @@ bool secondarySequence()
                     };
                 };
                 ;
+                ;
+                static bool _asyncForIsFirstRun;
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        _asyncSequenceStep++;
+                        ;
+                        {
+                            _asyncForIsFirstRun = true;
+                        };
+                    };
+                };
+                ;
                 ; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/ /*////////////////////////////////////*/
                 {
                     static int _asyncWhileStartAnchor = 0;
@@ -53,7 +66,7 @@ bool secondarySequence()
                     if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                     {
                         {
-                            if (i <= 5)
+                            if (true)
                             {
                                 _asyncSequenceStep++;
                                 ;
@@ -66,7 +79,31 @@ bool secondarySequence()
                         };
                     };
                     ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/ /*////////////////////////////////////*/
-                    { /*////////////////////////////////////*/ /*//////// Begin for-loop task ///////*/ /*////////////////////////////////////*/
+                    {
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                                {
+                                    if (_asyncForIsFirstRun)
+                                    {
+                                        _asyncForIsFirstRun = false;
+                                    }
+                                    else
+                                    {
+                                        i++;
+                                    }
+                                    if (!(i <= 5))
+                                    {
+                                        _asyncSequenceStep = _asyncWhileEndAnchor;
+                                        ;
+                                        ;
+                                    }
+                                };
+                            };
+                        };
+                        ; /*////////////////////////////////////*/ /*//////// Begin for-loop task ///////*/ /*////////////////////////////////////*/
                         {
                             if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                             {
@@ -103,18 +140,7 @@ bool secondarySequence()
                             }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
                             ;
                         }; /*////////////////////////////////////*/ /*//////// End for-loop task /////////*/ /*////////////////////////////////////*/
-                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                        {
-                            {
-                                _asyncSequenceStep++;
-                                ;
-                                {
-                                    i++;
-                                };
-                            };
-                        };
-                        ;
-                    }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/ /*////////////////////////////////////*/
+                    }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/     /*////////////////////////////////////*/
                     if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                     {
                         {
@@ -173,7 +199,263 @@ bool updateMainSequence()
                     };
                 };
             };
+            ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
+            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+            {
+                {
+                    _asyncSequenceStep++;
+                    ;
+                    {
+                        _asyncSequenceDelayTimer = millis();
+                    };
+                };
+            };
             ;
+            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+            {
+                {
+                    if ((millis() - _asyncSequenceDelayTimer) >= 2000)
+                    {
+                        _asyncSequenceStep++;
+                        ;
+                    }
+                };
+            }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+            ; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/  /*////////////////////////////////////*/
+            {
+                static int _asyncWhileStartAnchor = 0;
+                ;
+                static int _asyncWhileEndAnchor = 0;
+                ;
+                _asyncWhileStartAnchor = _asyncSequenceCurrentStep;
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        if (true)
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                        }
+                        else
+                        {
+                            _asyncSequenceStep = _asyncWhileEndAnchor;
+                            ;
+                        }
+                    };
+                };
+                ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/ /*////////////////////////////////////*/
+                {
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                            {
+                                if (digitalRead(BUTTON_PIN))
+                                {
+                                    _asyncSequenceStep = _asyncWhileEndAnchor;
+                                    ;
+                                    ;
+                                }
+                            };
+                        };
+                    };
+                    ; /* The next steps get skipped and*/ /* the while loop ends when the button is pressed*/
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                            {
+                                Serial.println("Waiting for button press");
+                            };
+                        };
+                    };
+                    ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                            {
+                                _asyncSequenceDelayTimer = millis();
+                            };
+                        };
+                    };
+                    ;
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            if ((millis() - _asyncSequenceDelayTimer) >= 1000)
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                            }
+                        };
+                    }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+                    ;
+                }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/ /*////////////////////////////////////*/
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        _asyncSequenceStep = _asyncWhileStartAnchor;
+                        ;
+                    };
+                };
+                _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        _asyncSequenceStep++;
+                        ;
+                    };
+                };
+                ;
+            } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/; /* Prints every other number from 0 to 10 with*/ /* a 1 second delay between each*/ /*////////////////////////////////////*/ /*////////// Begin for-loop //////////*/ /*////////////////////////////////////*/
+            {
+                static int i;
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        _asyncSequenceStep++;
+                        ;
+                        {
+                            i = 0;
+                        };
+                    };
+                };
+                ;
+                ;
+                static bool _asyncForIsFirstRun;
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        _asyncSequenceStep++;
+                        ;
+                        {
+                            _asyncForIsFirstRun = true;
+                        };
+                    };
+                };
+                ;
+                ; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/ /*////////////////////////////////////*/
+                {
+                    static int _asyncWhileStartAnchor = 0;
+                    ;
+                    static int _asyncWhileEndAnchor = 0;
+                    ;
+                    _asyncWhileStartAnchor = _asyncSequenceCurrentStep;
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            if (true)
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                            }
+                            else
+                            {
+                                _asyncSequenceStep = _asyncWhileEndAnchor;
+                                ;
+                            }
+                        };
+                    };
+                    ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/ /*////////////////////////////////////*/
+                    {
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                                {
+                                    if (_asyncForIsFirstRun)
+                                    {
+                                        _asyncForIsFirstRun = false;
+                                    }
+                                    else
+                                    {
+                                        i++;
+                                    }
+                                    if (!(i <= 10))
+                                    {
+                                        _asyncSequenceStep = _asyncWhileEndAnchor;
+                                        ;
+                                        ;
+                                    }
+                                };
+                            };
+                        };
+                        ; /*////////////////////////////////////*/ /*//////// Begin for-loop task ///////*/ /*////////////////////////////////////*/
+                        {
+                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                            {
+                                {
+                                    _asyncSequenceStep++;
+                                    ;
+                                    {
+                                        if (i % 2 == 0)
+                                        {
+                                            _asyncSequenceStep = _asyncWhileStartAnchor;
+                                            ;
+                                            ;
+                                        }
+                                    };
+                                };
+                            };
+                            ; /* The next steps get skipped when i is odd*/
+                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                            {
+                                {
+                                    _asyncSequenceStep++;
+                                    ;
+                                    {
+                                        Serial.println(i);
+                                    };
+                                };
+                            };
+                            ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
+                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                            {
+                                {
+                                    _asyncSequenceStep++;
+                                    ;
+                                    {
+                                        _asyncSequenceDelayTimer = millis();
+                                    };
+                                };
+                            };
+                            ;
+                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                            {
+                                {
+                                    if ((millis() - _asyncSequenceDelayTimer) >= 1000)
+                                    {
+                                        _asyncSequenceStep++;
+                                        ;
+                                    }
+                                };
+                            }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+                            ;
+                        }; /*////////////////////////////////////*/ /*//////// End for-loop task /////////*/ /*////////////////////////////////////*/
+                    }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/     /*////////////////////////////////////*/
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep = _asyncWhileStartAnchor;
+                            ;
+                        };
+                    };
+                    _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                        };
+                    };
+                    ;
+                } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/;
+            } /*////////////////////////////////////*/ /*/////////// End for-loop ///////////*/ /*////////////////////////////////////*/;
             static float timesRan;
             if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
             {
@@ -311,6 +593,19 @@ bool updateMainSequence()
                     };
                 };
                 ;
+                ;
+                static bool _asyncForIsFirstRun;
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        _asyncSequenceStep++;
+                        ;
+                        {
+                            _asyncForIsFirstRun = true;
+                        };
+                    };
+                };
+                ;
                 ; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/ /*////////////////////////////////////*/
                 {
                     static int _asyncWhileStartAnchor = 0;
@@ -321,7 +616,7 @@ bool updateMainSequence()
                     if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                     {
                         {
-                            if (i <= 5)
+                            if (true)
                             {
                                 _asyncSequenceStep++;
                                 ;
@@ -334,7 +629,31 @@ bool updateMainSequence()
                         };
                     };
                     ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/ /*////////////////////////////////////*/
-                    { /*////////////////////////////////////*/ /*//////// Begin for-loop task ///////*/ /*////////////////////////////////////*/
+                    {
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                                {
+                                    if (_asyncForIsFirstRun)
+                                    {
+                                        _asyncForIsFirstRun = false;
+                                    }
+                                    else
+                                    {
+                                        i++;
+                                    }
+                                    if (!(i <= 5))
+                                    {
+                                        _asyncSequenceStep = _asyncWhileEndAnchor;
+                                        ;
+                                        ;
+                                    }
+                                };
+                            };
+                        };
+                        ; /*////////////////////////////////////*/ /*//////// Begin for-loop task ///////*/ /*////////////////////////////////////*/
                         {
                             if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                             {
@@ -370,18 +689,7 @@ bool updateMainSequence()
                             }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
                             ;
                         }; /*////////////////////////////////////*/ /*//////// End for-loop task /////////*/ /*////////////////////////////////////*/
-                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                        {
-                            {
-                                _asyncSequenceStep++;
-                                ;
-                                {
-                                    i++;
-                                };
-                            };
-                        };
-                        ;
-                    }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/ /*////////////////////////////////////*/
+                    }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/     /*////////////////////////////////////*/
                     if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                     {
                         {
@@ -542,6 +850,19 @@ bool updateMainSequence()
                                                 };
                                             };
                                             ;
+                                            ;
+                                            static bool _asyncForIsFirstRun;
+                                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                            {
+                                                {
+                                                    _asyncSequenceStep++;
+                                                    ;
+                                                    {
+                                                        _asyncForIsFirstRun = true;
+                                                    };
+                                                };
+                                            };
+                                            ;
                                             ; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/ /*////////////////////////////////////*/
                                             {
                                                 static int _asyncWhileStartAnchor = 0;
@@ -552,7 +873,7 @@ bool updateMainSequence()
                                                 if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                                                 {
                                                     {
-                                                        if (i <= 255)
+                                                        if (true)
                                                         {
                                                             _asyncSequenceStep++;
                                                             ;
@@ -565,7 +886,31 @@ bool updateMainSequence()
                                                     };
                                                 };
                                                 ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/ /*////////////////////////////////////*/
-                                                { /*////////////////////////////////////*/ /*//////// Begin for-loop task ///////*/ /*////////////////////////////////////*/
+                                                {
+                                                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                                    {
+                                                        {
+                                                            _asyncSequenceStep++;
+                                                            ;
+                                                            {
+                                                                if (_asyncForIsFirstRun)
+                                                                {
+                                                                    _asyncForIsFirstRun = false;
+                                                                }
+                                                                else
+                                                                {
+                                                                    i++;
+                                                                }
+                                                                if (!(i <= 255))
+                                                                {
+                                                                    _asyncSequenceStep = _asyncWhileEndAnchor;
+                                                                    ;
+                                                                    ;
+                                                                }
+                                                            };
+                                                        };
+                                                    };
+                                                    ; /*////////////////////////////////////*/ /*//////// Begin for-loop task ///////*/ /*////////////////////////////////////*/
                                                     {
                                                         if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                                                         {
@@ -601,18 +946,7 @@ bool updateMainSequence()
                                                         }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
                                                         ;
                                                     }; /*////////////////////////////////////*/ /*//////// End for-loop task /////////*/ /*////////////////////////////////////*/
-                                                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                                                    {
-                                                        {
-                                                            _asyncSequenceStep++;
-                                                            ;
-                                                            {
-                                                                i++;
-                                                            };
-                                                        };
-                                                    };
-                                                    ;
-                                                }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/ /*////////////////////////////////////*/
+                                                }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/     /*////////////////////////////////////*/
                                                 if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                                                 {
                                                     {
@@ -644,6 +978,19 @@ bool updateMainSequence()
                                                 };
                                             };
                                             ;
+                                            ;
+                                            static bool _asyncForIsFirstRun;
+                                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                            {
+                                                {
+                                                    _asyncSequenceStep++;
+                                                    ;
+                                                    {
+                                                        _asyncForIsFirstRun = true;
+                                                    };
+                                                };
+                                            };
+                                            ;
                                             ; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/ /*////////////////////////////////////*/
                                             {
                                                 static int _asyncWhileStartAnchor = 0;
@@ -654,7 +1001,7 @@ bool updateMainSequence()
                                                 if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                                                 {
                                                     {
-                                                        if (i >= 0)
+                                                        if (true)
                                                         {
                                                             _asyncSequenceStep++;
                                                             ;
@@ -667,7 +1014,31 @@ bool updateMainSequence()
                                                     };
                                                 };
                                                 ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/ /*////////////////////////////////////*/
-                                                { /*////////////////////////////////////*/ /*//////// Begin for-loop task ///////*/ /*////////////////////////////////////*/
+                                                {
+                                                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                                    {
+                                                        {
+                                                            _asyncSequenceStep++;
+                                                            ;
+                                                            {
+                                                                if (_asyncForIsFirstRun)
+                                                                {
+                                                                    _asyncForIsFirstRun = false;
+                                                                }
+                                                                else
+                                                                {
+                                                                    i--;
+                                                                }
+                                                                if (!(i >= 0))
+                                                                {
+                                                                    _asyncSequenceStep = _asyncWhileEndAnchor;
+                                                                    ;
+                                                                    ;
+                                                                }
+                                                            };
+                                                        };
+                                                    };
+                                                    ; /*////////////////////////////////////*/ /*//////// Begin for-loop task ///////*/ /*////////////////////////////////////*/
                                                     {
                                                         if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                                                         {
@@ -703,18 +1074,7 @@ bool updateMainSequence()
                                                         }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
                                                         ;
                                                     }; /*////////////////////////////////////*/ /*//////// End for-loop task /////////*/ /*////////////////////////////////////*/
-                                                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                                                    {
-                                                        {
-                                                            _asyncSequenceStep++;
-                                                            ;
-                                                            {
-                                                                i--;
-                                                            };
-                                                        };
-                                                    };
-                                                    ;
-                                                }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/ /*////////////////////////////////////*/
+                                                }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/     /*////////////////////////////////////*/
                                                 if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                                                 {
                                                     {
@@ -1088,7 +1448,7 @@ bool updateMainSequence()
             _asyncSequenceStep = 0;
         }
     } /*////////////////////////////////////*/ /*/////////// End sequence ///////////*/ /*////////////////////////////////////*/
-# 143 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
+# 176 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
     ;
     return false;
 }
@@ -1257,7 +1617,7 @@ void loop()
             _asyncSequenceStep = 0;
         }
     } /*////////////////////////////////////*/ /*/////////// End sequence ///////////*/ /*////////////////////////////////////*/
-# 172 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
+# 205 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
     ;
 
     if (updateMainSequence())

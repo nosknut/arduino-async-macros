@@ -11,7 +11,7 @@ void setup();
 bool secondarySequence();
 #line 35 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
 bool updateMainSequence();
-#line 147 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
+#line 180 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
 void loop();
 #line 6 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
 void setup()
@@ -48,6 +48,39 @@ bool updateMainSequence()
     asyncBegin({
         asyncRun({
             Serial.println("Step 0");
+        });
+
+        asyncDelay(2000);
+
+        asyncWhile(true, {
+            asyncRun({
+                if (digitalRead(BUTTON_PIN))
+                {
+                    asyncBreak();
+                }
+            });
+            // The next steps get skipped and
+            // the while loop ends when the button is pressed
+            asyncRun({
+                Serial.println("Waiting for button press");
+            });
+            asyncDelay(1000);
+        });
+
+        // Prints every other number from 0 to 10 with
+        // a 1 second delay between each
+        asyncFor(int, i, 0, i <= 10, i++, {
+            asyncRun({
+                if (i % 2 == 0)
+                {
+                    asyncContinue();
+                }
+            });
+            // The next steps get skipped when i is odd
+            asyncRun({
+                Serial.println(i);
+            });
+            asyncDelay(1000);
         });
 
         asyncVariable(float, timesRan, 0);

@@ -33,6 +33,8 @@ Runs regular code
 Can contain:
 
 - `asyncBegin` (when inside an `asyncWhile` that contains no `asyncDelay`s)
+- `asyncContinue`
+- `asyncBreak`
 - regular code
 
 ### Example
@@ -235,6 +237,65 @@ asyncBegin({
     });
     asyncRun({
         Serial.println("Done 2 seconds later");
+    });
+});
+```
+
+## `asyncBreak`
+
+A regular break; statement
+Can only be used inside `asyncRun({ })`
+
+NB! This will skip the **next** step in the sequence, it will not skip the remaining code inside the current asyncRun({ }).
+
+### Example:
+
+```cpp
+asyncBegin({
+    asyncWhile(true, {
+        asyncRun({
+            if (digitalRead(BUTTON_PIN)) {
+                asyncBreak();
+            }
+        });
+        // The next steps get skipped and
+        // the while loop ends when the button is pressed
+        asyncRun({
+            Serial.println("Waiting for button press");
+        });
+        asyncDelay(1000);
+    });
+});
+```
+
+## `asyncContinue`
+
+A regular continue; statement
+Can only be used inside `asyncRun({ })`
+
+NB! This will skip the **next** step in the sequence, it will not skip the remaining code inside the current asyncRun({ }).
+
+### Example:
+
+```cpp
+asyncBegin({
+    asyncRun({
+        Serial.println("Hello World");
+    });
+    // Prints every other number from 0 to 10 with
+    // a 1 second delay between each
+    asyncFor(int, i, 0, i <= 10, i++, {
+        asyncRun({
+            if (i % 2 == 0)
+            {
+                asyncContinue();
+            }
+        });
+        // The next steps get skipped when i is odd
+        asyncRun({
+            Serial.println(i);
+        });
+        asyncDelay(1000);
     });
 });
 ```

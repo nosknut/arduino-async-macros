@@ -63,6 +63,8 @@ Can contain:
 Runs regular code
 Can contain:
 - asyncBegin (when inside an asyncWhile that contains no delays)
+- asyncContinue
+- asyncBreak
 - regular code
 */
 #define asyncRun(task) \
@@ -150,6 +152,28 @@ Can contain:
     /*////////////////////////////////////*/
 
 /*
+Exits the current while or for-loop
+Can only be used inside asyncRun({ });
+
+NB!
+This will skip the next step in the sequence,
+it will not skip the remaining code inside the current asyncRun({ }).
+*/
+#define asyncBreak() \
+    _asyncGoto(_asyncWhileEndAnchor);
+
+/*
+Restarts the current while or for-loop
+Can only be used inside asyncRun({ });
+
+NB!
+This will skip the next step in the sequence,
+it will not skip the remaining code inside the current asyncRun({ }).
+*/
+#define asyncContinue() \
+    _asyncGoto(_asyncWhileStartAnchor);
+
+/*
 A regular for-loop
 Condition can be:
 - regular code
@@ -169,7 +193,24 @@ Can contain:
     /*////////////////////////////////////*/                                           \
     {                                                                                  \
         asyncVariable(variableType, variableName, initialValue);                       \
-        asyncWhile(condition, {                                                        \
+        asyncVariable(bool, _asyncForIsFirstRun, true);                                \
+        asyncWhile(true, {                                                             \
+            asyncRun({                                                                 \
+                if (_asyncForIsFirstRun)                                               \
+                {                                                                      \
+                    _asyncForIsFirstRun = false;                                       \
+                }                                                                      \
+                else                                                                   \
+                {                                                                      \
+                    increment;                                                         \
+                }                                                                      \
+                                                                                       \
+                if (!(condition))                                                        \
+                {                                                                      \
+                    asyncBreak();                                                      \
+                }                                                                      \
+            });                                                                        \
+                                                                                       \
             /*////////////////////////////////////*/                                   \
             /*//////// Begin for-loop task ///////*/                                   \
             /*////////////////////////////////////*/                                   \
@@ -177,10 +218,6 @@ Can contain:
             /*////////////////////////////////////*/                                   \
             /*//////// End for-loop task /////////*/                                   \
             /*////////////////////////////////////*/                                   \
-                                                                                       \
-            asyncRun({                                                                 \
-                increment;                                                             \
-            });                                                                        \
         });                                                                            \
     }                                                                                  \
     /*////////////////////////////////////*/                                           \
