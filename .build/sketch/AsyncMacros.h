@@ -2,6 +2,16 @@
 #ifndef SEQUENCE_MACROS_h
 #define SEQUENCE_MACROS_h
 
+// Do not use this, or any other async macro starting with _
+#define _asyncStep(task)                                   \
+    if (_asyncSequenceStep == _asyncSequenceCurrentStep++) \
+    {                                                      \
+        task;                                              \
+    }
+
+// Do not use this, or any other async macro starting with _
+#define _asyncNext() _asyncSequenceStep++;
+
 /*
 Creates an async context to keep track of what code should run
 Can contain:
@@ -14,46 +24,76 @@ Can contain:
 - asyncIf
 - asyncIfElse
 */
-#define asyncBegin(task)                                     \
-    {                                                        \
-        /*////////////////////////////////////*/             \
-        /*////////// Begin sequence //////////*/             \
-        /*////////////////////////////////////*/             \
-        static int _asyncSequenceStep = 0;                   \
-        static unsigned long _asyncSequenceDelayTimer = 0;   \
-        int _asyncSequenceCurrentStep = 0;                   \
-                                                             \
-        /*////////////////////////////////////*/             \
-        /*//////// Begin sequence steps //////*/             \
-        /*////////////////////////////////////*/             \
-        task;                                                \
-        /*////////////////////////////////////*/             \
-        /*//////// End sequences steps ///////*/             \
-        /*////////////////////////////////////*/             \
-                                                             \
-        if (_asyncSequenceStep == _asyncSequenceCurrentStep) \
-        {                                                    \
-            _asyncSequenceStep = 0;                          \
-        }                                                    \
-    }                                                        \
-    /*////////////////////////////////////*/                 \
-    /*/////////// End sequence ///////////*/                 \
+#define asyncBegin(task)                                           \
+    {                                                              \
+        while (true)                                               \
+        {                                                          \
+            /*////////////////////////////////////*/               \
+            /*////////// Begin sequence //////////*/               \
+            /*////////////////////////////////////*/               \
+            static int _asyncSequenceStep = 0;                     \
+            static unsigned long _asyncSequenceDelayTimer = 0;     \
+                                                                   \
+            /* The dry run runs a single empty step without */     \
+            /* continuing so that all sequence indexes can be */   \
+            /* counted. This is needed for stepAnchors to work. */ \
+            static bool _asyncDryRun = true;                       \
+                                                                   \
+            int _asyncSequenceCurrentStep = 0;                     \
+                                                                   \
+            /*////////////////////////////////////*/               \
+            /*//////// Begin dry run step ////////*/               \
+            /*////////////////////////////////////*/               \
+            _asyncStep({                                           \
+                if (!_asyncDryRun)                                 \
+                {                                                  \
+                    _asyncNext();                                  \
+                }                                                  \
+            });                                                    \
+            /*////////////////////////////////////*/               \
+            /*//////// End dry run step //////////*/               \
+            /*////////////////////////////////////*/               \
+                                                                   \
+            /*////////////////////////////////////*/               \
+            /*//////// Begin sequence steps //////*/               \
+            /*////////////////////////////////////*/               \
+                                                                   \
+            task;                                                  \
+                                                                   \
+            /*////////////////////////////////////*/               \
+            /*//////// End sequences steps ///////*/               \
+            /*////////////////////////////////////*/               \
+                                                                   \
+            if (_asyncSequenceStep == _asyncSequenceCurrentStep)   \
+            {                                                      \
+                _asyncSequenceStep = 0;                            \
+            }                                                      \
+                                                                   \
+            /*////////////////////////////////////*/               \
+            /*//////// Begin dry run check ////////*/              \
+            /*////////////////////////////////////*/               \
+            if (_asyncDryRun)                                      \
+            {                                                      \
+                _asyncDryRun = false;                              \
+                continue;                                          \
+            }                                                      \
+            else                                                   \
+            {                                                      \
+                break;                                             \
+            }                                                      \
+            /*////////////////////////////////////*/               \
+            /*//////// End dry run check /////////*/               \
+            /*////////////////////////////////////*/               \
+        }                                                          \
+    }                                                              \
+    /*////////////////////////////////////*/                       \
+    /*/////////// End sequence ///////////*/                       \
     /*////////////////////////////////////*/
-
-// Do not use this, or any other async macro starting with _
-#define _asyncStep(task)                                   \
-    if (_asyncSequenceStep == _asyncSequenceCurrentStep++) \
-    {                                                      \
-        task;                                              \
-    }
 
 // Do not use this, or any other async macro starting with _
 #define _asyncNamedStep(stepAnchor, task)   \
     stepAnchor = _asyncSequenceCurrentStep; \
     _asyncStep(task);
-
-// Do not use this, or any other async macro starting with _
-#define _asyncNext() _asyncSequenceStep++;
 
 // Do not use this, or any other async macro starting with _
 #define _asyncGoto(goToStep) _asyncSequenceStep = goToStep;
@@ -295,7 +335,7 @@ Can contain:
                     increment;                                                         \
                 }                                                                      \
                                                                                        \
-                if (!(condition))                                                        \
+                if (!(condition))                                                      \
                 {                                                                      \
                     asyncBreak();                                                      \
                 }                                                                      \

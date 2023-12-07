@@ -14,167 +14,190 @@ void setup()
 
 bool secondarySequence()
 {
-    { /*////////////////////////////////////*/ /*////////// Begin sequence //////////*/ /*////////////////////////////////////*/
-        static int _asyncSequenceStep = 0;
-        static unsigned long _asyncSequenceDelayTimer = 0;
-        int _asyncSequenceCurrentStep = 0; /*////////////////////////////////////*/ /*//////// Begin sequence steps //////*/ /*////////////////////////////////////*/
-        {
+    {
+        while (true)
+        { /*////////////////////////////////////*/ /*////////// Begin sequence //////////*/ /*////////////////////////////////////*/
+            static int _asyncSequenceStep = 0;
+            static unsigned long _asyncSequenceDelayTimer = 0; /* The dry run runs a single empty step without */ /* continuing so that all sequence indexes can be */ /* counted. This is needed for stepAnchors to work. */
+            static bool _asyncDryRun = true;
+            int _asyncSequenceCurrentStep = 0; /*////////////////////////////////////*/ /*//////// Begin dry run step ////////*/ /*////////////////////////////////////*/
             if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
             {
                 {
-                    _asyncSequenceStep++;
-                    ;
+                    if (!_asyncDryRun)
                     {
-                        Serial.println("Secondary sequence started");
-                    };
+                        _asyncSequenceStep++;
+                        ;
+                    }
                 };
-            };
-            ; /*////////////////////////////////////*/ /*////////// Begin for-loop //////////*/ /*////////////////////////////////////*/
+            }; /*////////////////////////////////////*/ /*//////// End dry run step //////////*/ /*////////////////////////////////////*/ /*////////////////////////////////////*/ /*//////// Begin sequence steps //////*/ /*////////////////////////////////////*/
             {
-                static int i;
                 if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                 {
                     {
                         _asyncSequenceStep++;
                         ;
                         {
-                            i = 0;
+                            Serial.println("Secondary sequence started");
                         };
                     };
                 };
-                ;
-                ;
-                static bool _asyncForIsFirstRun;
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                ; /*////////////////////////////////////*/ /*////////// Begin for-loop //////////*/ /*////////////////////////////////////*/
                 {
-                    {
-                        _asyncSequenceStep++;
-                        ;
-                        {
-                            _asyncForIsFirstRun = true;
-                        };
-                    };
-                };
-                ;
-                ; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/ /*////////////////////////////////////*/
-                {
-                    static int _asyncWhileStartAnchor = 0;
-                    ;
-                    static int _asyncWhileEndAnchor = 0;
-                    ;
-                    _asyncWhileStartAnchor = _asyncSequenceCurrentStep;
-                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                    {
-                        {
-                            if (true)
-                            {
-                                _asyncSequenceStep++;
-                                ;
-                            }
-                            else
-                            {
-                                _asyncSequenceStep = _asyncWhileEndAnchor;
-                                ;
-                            }
-                        };
-                    };
-                    ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/ /*////////////////////////////////////*/
-                    {
-                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                        {
-                            {
-                                _asyncSequenceStep++;
-                                ;
-                                {
-                                    if (_asyncForIsFirstRun)
-                                    {
-                                        _asyncForIsFirstRun = false;
-                                    }
-                                    else
-                                    {
-                                        i++;
-                                    }
-                                    if (!(i <= 5))
-                                    {
-                                        _asyncSequenceStep = _asyncWhileEndAnchor;
-                                        ;
-                                        ;
-                                    }
-                                };
-                            };
-                        };
-                        ; /*////////////////////////////////////*/ /*//////// Begin for-loop task ///////*/ /*////////////////////////////////////*/
-                        {
-                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                            {
-                                {
-                                    _asyncSequenceStep++;
-                                    ;
-                                    {
-                                        Serial.print("Secondary running times: ");
-                                        Serial.println(i);
-                                    };
-                                };
-                            };
-                            ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
-                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                            {
-                                {
-                                    _asyncSequenceStep++;
-                                    ;
-                                    {
-                                        _asyncSequenceDelayTimer = millis();
-                                    };
-                                };
-                            };
-                            ;
-                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                            {
-                                {
-                                    if ((millis() - _asyncSequenceDelayTimer) >= 1000)
-                                    {
-                                        _asyncSequenceStep++;
-                                        ;
-                                    }
-                                };
-                            }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
-                            ;
-                        }; /*////////////////////////////////////*/ /*//////// End for-loop task /////////*/ /*////////////////////////////////////*/
-                    }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/     /*////////////////////////////////////*/
-                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                    {
-                        {
-                            _asyncSequenceStep = _asyncWhileStartAnchor;
-                            ;
-                        };
-                    };
-                    _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
+                    static int i;
                     if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                     {
                         {
                             _asyncSequenceStep++;
                             ;
+                            {
+                                i = 0;
+                            };
                         };
                     };
                     ;
-                } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/;
-            } /*////////////////////////////////////*/ /*/////////// End for-loop ///////////*/ /*////////////////////////////////////*/;
-            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-            {
-                {
-                    _asyncSequenceStep++;
                     ;
+                    static bool _asyncForIsFirstRun;
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                     {
-                        Serial.println("Secondary sequence completed");
-                        return true;
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                            {
+                                _asyncForIsFirstRun = true;
+                            };
+                        };
+                    };
+                    ;
+                    ; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/ /*////////////////////////////////////*/
+                    {
+                        static int _asyncWhileStartAnchor = 0;
+                        ;
+                        static int _asyncWhileEndAnchor = 0;
+                        ;
+                        _asyncWhileStartAnchor = _asyncSequenceCurrentStep;
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                if (true)
+                                {
+                                    _asyncSequenceStep++;
+                                    ;
+                                }
+                                else
+                                {
+                                    _asyncSequenceStep = _asyncWhileEndAnchor;
+                                    ;
+                                }
+                            };
+                        };
+                        ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/ /*////////////////////////////////////*/
+                        {
+                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                            {
+                                {
+                                    _asyncSequenceStep++;
+                                    ;
+                                    {
+                                        if (_asyncForIsFirstRun)
+                                        {
+                                            _asyncForIsFirstRun = false;
+                                        }
+                                        else
+                                        {
+                                            i++;
+                                        }
+                                        if (!(i <= 5))
+                                        {
+                                            _asyncSequenceStep = _asyncWhileEndAnchor;
+                                            ;
+                                            ;
+                                        }
+                                    };
+                                };
+                            };
+                            ; /*////////////////////////////////////*/ /*//////// Begin for-loop task ///////*/ /*////////////////////////////////////*/
+                            {
+                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                {
+                                    {
+                                        _asyncSequenceStep++;
+                                        ;
+                                        {
+                                            Serial.print("Secondary running times: ");
+                                            Serial.println(i);
+                                        };
+                                    };
+                                };
+                                ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
+                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                {
+                                    {
+                                        _asyncSequenceStep++;
+                                        ;
+                                        {
+                                            _asyncSequenceDelayTimer = millis();
+                                        };
+                                    };
+                                };
+                                ;
+                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                {
+                                    {
+                                        if ((millis() - _asyncSequenceDelayTimer) >= 1000)
+                                        {
+                                            _asyncSequenceStep++;
+                                            ;
+                                        }
+                                    };
+                                }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+                                ;
+                            }; /*////////////////////////////////////*/ /*//////// End for-loop task /////////*/ /*////////////////////////////////////*/
+                        }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/     /*////////////////////////////////////*/
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                _asyncSequenceStep = _asyncWhileStartAnchor;
+                                ;
+                            };
+                        };
+                        _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                            };
+                        };
+                        ;
+                    } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/;
+                } /*////////////////////////////////////*/ /*/////////// End for-loop ///////////*/ /*////////////////////////////////////*/;
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        _asyncSequenceStep++;
+                        ;
+                        {
+                            Serial.println("Secondary sequence completed");
+                            return true;
+                        };
                     };
                 };
-            };
-            ;
-        }; /*////////////////////////////////////*/ /*//////// End sequences steps ///////*/ /*////////////////////////////////////*/
-        if (_asyncSequenceStep == _asyncSequenceCurrentStep)
-        {
-            _asyncSequenceStep = 0;
+                ;
+            }; /*////////////////////////////////////*/ /*//////// End sequences steps ///////*/ /*////////////////////////////////////*/
+            if (_asyncSequenceStep == _asyncSequenceCurrentStep)
+            {
+                _asyncSequenceStep = 0;
+            } /*////////////////////////////////////*/ /*//////// Begin dry run check ////////*/ /*////////////////////////////////////*/
+            if (_asyncDryRun)
+            {
+                _asyncDryRun = false;
+                continue;
+            }
+            else
+            {
+                break;
+            } /*////////////////////////////////////*/ /*//////// End dry run check /////////*/ /*////////////////////////////////////*/
         }
     } /*////////////////////////////////////*/ /*/////////// End sequence ///////////*/ /*////////////////////////////////////*/
 # 31 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
@@ -184,363 +207,259 @@ bool secondarySequence()
 
 bool updateMainSequence()
 {
-    { /*////////////////////////////////////*/ /*////////// Begin sequence //////////*/ /*////////////////////////////////////*/
-        static int _asyncSequenceStep = 0;
-        static unsigned long _asyncSequenceDelayTimer = 0;
-        int _asyncSequenceCurrentStep = 0; /*////////////////////////////////////*/ /*//////// Begin sequence steps //////*/ /*////////////////////////////////////*/
-        {
+    {
+        while (true)
+        { /*////////////////////////////////////*/ /*////////// Begin sequence //////////*/ /*////////////////////////////////////*/
+            static int _asyncSequenceStep = 0;
+            static unsigned long _asyncSequenceDelayTimer = 0; /* The dry run runs a single empty step without */ /* continuing so that all sequence indexes can be */ /* counted. This is needed for stepAnchors to work. */
+            static bool _asyncDryRun = true;
+            int _asyncSequenceCurrentStep = 0; /*////////////////////////////////////*/ /*//////// Begin dry run step ////////*/ /*////////////////////////////////////*/
             if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
             {
                 {
-                    _asyncSequenceStep++;
-                    ;
-                    {
-                        Serial.println("Step 0");
-                    };
-                };
-            };
-            ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
-            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-            {
-                {
-                    _asyncSequenceStep++;
-                    ;
-                    {
-                        _asyncSequenceDelayTimer = millis();
-                    };
-                };
-            };
-            ;
-            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-            {
-                {
-                    if ((millis() - _asyncSequenceDelayTimer) >= 2000)
+                    if (!_asyncDryRun)
                     {
                         _asyncSequenceStep++;
                         ;
                     }
                 };
-            }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
-            ; /*////////////////////////////////////*/ /*/////// Begin if-else-statement ////*/  /*////////////////////////////////////*/
+            }; /*////////////////////////////////////*/ /*//////// End dry run step //////////*/ /*////////////////////////////////////*/ /*////////////////////////////////////*/ /*//////// Begin sequence steps //////*/ /*////////////////////////////////////*/
             {
-                static bool _asyncIfCondition;
                 if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                 {
                     {
                         _asyncSequenceStep++;
                         ;
                         {
-                            _asyncIfCondition = digitalRead(BUTTON_PIN);
+                            Serial.println("Step 0");
+                        };
+                    };
+                };
+                ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        _asyncSequenceStep++;
+                        ;
+                        {
+                            _asyncSequenceDelayTimer = millis();
                         };
                     };
                 };
                 ;
-                ;
-                static int _asyncElseStartAnchor = 0;
-                ;
-                static int _asyncElseEndAnchor = 0;
-                ;
                 if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                 {
                     {
-                        if (_asyncIfCondition)
+                        if ((millis() - _asyncSequenceDelayTimer) >= 2000)
                         {
                             _asyncSequenceStep++;
                             ;
                         }
-                        else
-                        {
-                            _asyncSequenceStep = _asyncElseStartAnchor;
-                            ;
-                        }
                     };
-                }; /*////////////////////////////////////*/ /*////// Begin if-statement task /////*/ /*////////////////////////////////////*/
+                }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+                ; /*////////////////////////////////////*/ /*/////// Begin if-else-statement ////*/  /*////////////////////////////////////*/
                 {
+                    static bool _asyncIfCondition;
                     if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                     {
                         {
                             _asyncSequenceStep++;
                             ;
                             {
-                                Serial.println("Button is pressed");
+                                _asyncIfCondition = digitalRead(BUTTON_PIN);
                             };
                         };
                     };
                     ;
-                }; /*////////////////////////////////////*/ /*/////// End if-statement task //////*/ /*////////////////////////////////////*/
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        _asyncSequenceStep = _asyncElseEndAnchor;
-                        ;
-                    };
-                };
-                _asyncElseStartAnchor = _asyncSequenceCurrentStep;
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        _asyncSequenceStep++;
-                        ;
-                    };
-                };
-                ; /*////////////////////////////////////*/ /*////// Begin else-statement task ///*/                                                  /*////////////////////////////////////*/
-                {/* empty because this is only an id-statement*/}; /*////////////////////////////////////*/ /*/////// End else-statement task ////*/ /*////////////////////////////////////*/
-                _asyncElseEndAnchor = _asyncSequenceCurrentStep;
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        _asyncSequenceStep++;
-                        ;
-                    };
-                };
-                ;
-            } /*////////////////////////////////////*/ /*//////// End if-else-statement /////*/ /*////////////////////////////////////*/; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
-            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-            {
-                {
-                    _asyncSequenceStep++;
                     ;
-                    {
-                        _asyncSequenceDelayTimer = millis();
-                    };
-                };
-            };
-            ;
-            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-            {
-                {
-                    if ((millis() - _asyncSequenceDelayTimer) >= 2000)
-                    {
-                        _asyncSequenceStep++;
-                        ;
-                    }
-                };
-            }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
-            ; /*////////////////////////////////////*/ /*/////// Begin if-else-statement ////*/  /*////////////////////////////////////*/
-            {
-                static bool _asyncIfCondition;
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        _asyncSequenceStep++;
-                        ;
-                        {
-                            _asyncIfCondition = digitalRead(BUTTON_PIN);
-                        };
-                    };
-                };
-                ;
-                ;
-                static int _asyncElseStartAnchor = 0;
-                ;
-                static int _asyncElseEndAnchor = 0;
-                ;
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        if (_asyncIfCondition)
-                        {
-                            _asyncSequenceStep++;
-                            ;
-                        }
-                        else
-                        {
-                            _asyncSequenceStep = _asyncElseStartAnchor;
-                            ;
-                        }
-                    };
-                }; /*////////////////////////////////////*/ /*////// Begin if-statement task /////*/ /*////////////////////////////////////*/
-                {
-                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                    {
-                        {
-                            _asyncSequenceStep++;
-                            ;
-                            {
-                                Serial.println("Button is pressed");
-                            };
-                        };
-                    };
+                    static int _asyncElseStartAnchor = 0;
                     ;
-                }; /*////////////////////////////////////*/ /*/////// End if-statement task //////*/ /*////////////////////////////////////*/
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        _asyncSequenceStep = _asyncElseEndAnchor;
-                        ;
-                    };
-                };
-                _asyncElseStartAnchor = _asyncSequenceCurrentStep;
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        _asyncSequenceStep++;
-                        ;
-                    };
-                };
-                ; /*////////////////////////////////////*/ /*////// Begin else-statement task ///*/ /*////////////////////////////////////*/
-                {
-                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                    {
-                        {
-                            _asyncSequenceStep++;
-                            ;
-                            {
-                                Serial.println("Button is not pressed");
-                            };
-                        };
-                    };
-                    ;
-                }; /*////////////////////////////////////*/ /*/////// End else-statement task ////*/ /*////////////////////////////////////*/
-                _asyncElseEndAnchor = _asyncSequenceCurrentStep;
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        _asyncSequenceStep++;
-                        ;
-                    };
-                };
-                ;
-            } /*////////////////////////////////////*/ /*//////// End if-else-statement /////*/ /*////////////////////////////////////*/; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
-            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-            {
-                {
-                    _asyncSequenceStep++;
-                    ;
-                    {
-                        _asyncSequenceDelayTimer = millis();
-                    };
-                };
-            };
-            ;
-            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-            {
-                {
-                    if ((millis() - _asyncSequenceDelayTimer) >= 2000)
-                    {
-                        _asyncSequenceStep++;
-                        ;
-                    }
-                };
-            }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
-            ; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/  /*////////////////////////////////////*/
-            {
-                static int _asyncWhileStartAnchor = 0;
-                ;
-                static int _asyncWhileEndAnchor = 0;
-                ;
-                _asyncWhileStartAnchor = _asyncSequenceCurrentStep;
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        if (true)
-                        {
-                            _asyncSequenceStep++;
-                            ;
-                        }
-                        else
-                        {
-                            _asyncSequenceStep = _asyncWhileEndAnchor;
-                            ;
-                        }
-                    };
-                };
-                ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/ /*////////////////////////////////////*/
-                {
-                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                    {
-                        {
-                            _asyncSequenceStep++;
-                            ;
-                            {
-                                if (digitalRead(BUTTON_PIN))
-                                {
-                                    _asyncSequenceStep = _asyncWhileEndAnchor;
-                                    ;
-                                    ;
-                                }
-                            };
-                        };
-                    };
-                    ; /* The next steps get skipped and*/ /* the while loop ends when the button is pressed*/
-                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                    {
-                        {
-                            _asyncSequenceStep++;
-                            ;
-                            {
-                                Serial.println("Waiting for button press");
-                            };
-                        };
-                    };
-                    ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
-                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                    {
-                        {
-                            _asyncSequenceStep++;
-                            ;
-                            {
-                                _asyncSequenceDelayTimer = millis();
-                            };
-                        };
-                    };
+                    static int _asyncElseEndAnchor = 0;
                     ;
                     if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                     {
                         {
-                            if ((millis() - _asyncSequenceDelayTimer) >= 1000)
+                            if (_asyncIfCondition)
                             {
                                 _asyncSequenceStep++;
                                 ;
                             }
+                            else
+                            {
+                                _asyncSequenceStep = _asyncElseStartAnchor;
+                                ;
+                            }
                         };
-                    }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+                    }; /*////////////////////////////////////*/ /*////// Begin if-statement task /////*/ /*////////////////////////////////////*/
+                    {
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                                {
+                                    Serial.println("Button is pressed");
+                                };
+                            };
+                        };
+                        ;
+                    }; /*////////////////////////////////////*/ /*/////// End if-statement task //////*/ /*////////////////////////////////////*/
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep = _asyncElseEndAnchor;
+                            ;
+                        };
+                    };
+                    _asyncElseStartAnchor = _asyncSequenceCurrentStep;
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                        };
+                    };
+                    ; /*////////////////////////////////////*/ /*////// Begin else-statement task ///*/                                                  /*////////////////////////////////////*/
+                    {/* empty because this is only an id-statement*/}; /*////////////////////////////////////*/ /*/////// End else-statement task ////*/ /*////////////////////////////////////*/
+                    _asyncElseEndAnchor = _asyncSequenceCurrentStep;
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                        };
+                    };
                     ;
-                }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/ /*////////////////////////////////////*/
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        _asyncSequenceStep = _asyncWhileStartAnchor;
-                        ;
-                    };
-                };
-                _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        _asyncSequenceStep++;
-                        ;
-                    };
-                };
-                ;
-            } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/; /* Prints every other number from 0 to 10 with*/ /* a 1 second delay between each*/ /*////////////////////////////////////*/ /*////////// Begin for-loop //////////*/ /*////////////////////////////////////*/
-            {
-                static int i;
+                } /*////////////////////////////////////*/ /*//////// End if-else-statement /////*/ /*////////////////////////////////////*/; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
                 if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                 {
                     {
                         _asyncSequenceStep++;
                         ;
                         {
-                            i = 0;
+                            _asyncSequenceDelayTimer = millis();
                         };
                     };
                 };
                 ;
-                ;
-                static bool _asyncForIsFirstRun;
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        if ((millis() - _asyncSequenceDelayTimer) >= 2000)
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                        }
+                    };
+                }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+                ; /*////////////////////////////////////*/ /*/////// Begin if-else-statement ////*/  /*////////////////////////////////////*/
+                {
+                    static bool _asyncIfCondition;
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                            {
+                                _asyncIfCondition = digitalRead(BUTTON_PIN);
+                            };
+                        };
+                    };
+                    ;
+                    ;
+                    static int _asyncElseStartAnchor = 0;
+                    ;
+                    static int _asyncElseEndAnchor = 0;
+                    ;
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            if (_asyncIfCondition)
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                            }
+                            else
+                            {
+                                _asyncSequenceStep = _asyncElseStartAnchor;
+                                ;
+                            }
+                        };
+                    }; /*////////////////////////////////////*/ /*////// Begin if-statement task /////*/ /*////////////////////////////////////*/
+                    {
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                                {
+                                    Serial.println("Button is pressed");
+                                };
+                            };
+                        };
+                        ;
+                    }; /*////////////////////////////////////*/ /*/////// End if-statement task //////*/ /*////////////////////////////////////*/
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep = _asyncElseEndAnchor;
+                            ;
+                        };
+                    };
+                    _asyncElseStartAnchor = _asyncSequenceCurrentStep;
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                        };
+                    };
+                    ; /*////////////////////////////////////*/ /*////// Begin else-statement task ///*/ /*////////////////////////////////////*/
+                    {
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                                {
+                                    Serial.println("Button is not pressed");
+                                };
+                            };
+                        };
+                        ;
+                    }; /*////////////////////////////////////*/ /*/////// End else-statement task ////*/ /*////////////////////////////////////*/
+                    _asyncElseEndAnchor = _asyncSequenceCurrentStep;
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                        };
+                    };
+                    ;
+                } /*////////////////////////////////////*/ /*//////// End if-else-statement /////*/ /*////////////////////////////////////*/; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
                 if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                 {
                     {
                         _asyncSequenceStep++;
                         ;
                         {
-                            _asyncForIsFirstRun = true;
+                            _asyncSequenceDelayTimer = millis();
                         };
                     };
                 };
                 ;
-                ; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/ /*////////////////////////////////////*/
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        if ((millis() - _asyncSequenceDelayTimer) >= 2000)
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                        }
+                    };
+                }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+                ; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/  /*////////////////////////////////////*/
                 {
                     static int _asyncWhileStartAnchor = 0;
                     ;
@@ -570,15 +489,7 @@ bool updateMainSequence()
                                 _asyncSequenceStep++;
                                 ;
                                 {
-                                    if (_asyncForIsFirstRun)
-                                    {
-                                        _asyncForIsFirstRun = false;
-                                    }
-                                    else
-                                    {
-                                        i++;
-                                    }
-                                    if (!(i <= 10))
+                                    if (digitalRead(BUTTON_PIN))
                                     {
                                         _asyncSequenceStep = _asyncWhileEndAnchor;
                                         ;
@@ -587,7 +498,107 @@ bool updateMainSequence()
                                 };
                             };
                         };
-                        ; /*////////////////////////////////////*/ /*//////// Begin for-loop task ///////*/ /*////////////////////////////////////*/
+                        ; /* The next steps get skipped and*/ /* the while loop ends when the button is pressed*/
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                                {
+                                    Serial.println("Waiting for button press");
+                                };
+                            };
+                        };
+                        ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                                {
+                                    _asyncSequenceDelayTimer = millis();
+                                };
+                            };
+                        };
+                        ;
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                if ((millis() - _asyncSequenceDelayTimer) >= 1000)
+                                {
+                                    _asyncSequenceStep++;
+                                    ;
+                                }
+                            };
+                        }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+                        ;
+                    }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/ /*////////////////////////////////////*/
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep = _asyncWhileStartAnchor;
+                            ;
+                        };
+                    };
+                    _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                        };
+                    };
+                    ;
+                } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/; /* Prints every other number from 0 to 10 with*/ /* a 1 second delay between each*/ /*////////////////////////////////////*/ /*////////// Begin for-loop //////////*/ /*////////////////////////////////////*/
+                {
+                    static int i;
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                            {
+                                i = 0;
+                            };
+                        };
+                    };
+                    ;
+                    ;
+                    static bool _asyncForIsFirstRun;
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                            {
+                                _asyncForIsFirstRun = true;
+                            };
+                        };
+                    };
+                    ;
+                    ; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/ /*////////////////////////////////////*/
+                    {
+                        static int _asyncWhileStartAnchor = 0;
+                        ;
+                        static int _asyncWhileEndAnchor = 0;
+                        ;
+                        _asyncWhileStartAnchor = _asyncSequenceCurrentStep;
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                if (true)
+                                {
+                                    _asyncSequenceStep++;
+                                    ;
+                                }
+                                else
+                                {
+                                    _asyncSequenceStep = _asyncWhileEndAnchor;
+                                    ;
+                                }
+                            };
+                        };
+                        ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/ /*////////////////////////////////////*/
                         {
                             if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                             {
@@ -595,215 +606,102 @@ bool updateMainSequence()
                                     _asyncSequenceStep++;
                                     ;
                                     {
-                                        if (i % 2 == 0)
+                                        if (_asyncForIsFirstRun)
                                         {
-                                            _asyncSequenceStep = _asyncWhileStartAnchor;
+                                            _asyncForIsFirstRun = false;
+                                        }
+                                        else
+                                        {
+                                            i++;
+                                        }
+                                        if (!(i <= 10))
+                                        {
+                                            _asyncSequenceStep = _asyncWhileEndAnchor;
                                             ;
                                             ;
                                         }
                                     };
                                 };
                             };
-                            ; /* The next steps get skipped when i is odd*/
-                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                            ; /*////////////////////////////////////*/ /*//////// Begin for-loop task ///////*/ /*////////////////////////////////////*/
                             {
+                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                                 {
-                                    _asyncSequenceStep++;
-                                    ;
-                                    {
-                                        Serial.println(i);
-                                    };
-                                };
-                            };
-                            ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
-                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                            {
-                                {
-                                    _asyncSequenceStep++;
-                                    ;
-                                    {
-                                        _asyncSequenceDelayTimer = millis();
-                                    };
-                                };
-                            };
-                            ;
-                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                            {
-                                {
-                                    if ((millis() - _asyncSequenceDelayTimer) >= 1000)
                                     {
                                         _asyncSequenceStep++;
                                         ;
-                                    }
+                                        {
+                                            if (i % 2 == 0)
+                                            {
+                                                _asyncSequenceStep = _asyncWhileStartAnchor;
+                                                ;
+                                                ;
+                                            }
+                                        };
+                                    };
                                 };
-                            }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
-                            ;
-                        }; /*////////////////////////////////////*/ /*//////// End for-loop task /////////*/ /*////////////////////////////////////*/
-                    }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/     /*////////////////////////////////////*/
-                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                    {
+                                ; /* The next steps get skipped when i is odd*/
+                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                {
+                                    {
+                                        _asyncSequenceStep++;
+                                        ;
+                                        {
+                                            Serial.println(i);
+                                        };
+                                    };
+                                };
+                                ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
+                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                {
+                                    {
+                                        _asyncSequenceStep++;
+                                        ;
+                                        {
+                                            _asyncSequenceDelayTimer = millis();
+                                        };
+                                    };
+                                };
+                                ;
+                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                {
+                                    {
+                                        if ((millis() - _asyncSequenceDelayTimer) >= 1000)
+                                        {
+                                            _asyncSequenceStep++;
+                                            ;
+                                        }
+                                    };
+                                }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+                                ;
+                            }; /*////////////////////////////////////*/ /*//////// End for-loop task /////////*/ /*////////////////////////////////////*/
+                        }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/     /*////////////////////////////////////*/
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                         {
-                            _asyncSequenceStep = _asyncWhileStartAnchor;
-                            ;
-                        };
-                    };
-                    _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
-                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                    {
-                        {
-                            _asyncSequenceStep++;
-                            ;
-                        };
-                    };
-                    ;
-                } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/;
-            } /*////////////////////////////////////*/ /*/////////// End for-loop ///////////*/ /*////////////////////////////////////*/;
-            static float timesRan;
-            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-            {
-                {
-                    _asyncSequenceStep++;
-                    ;
-                    {
-                        timesRan = 0;
-                    };
-                };
-            };
-            ;
-            ; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/ /*////////////////////////////////////*/
-            {
-                static int _asyncWhileStartAnchor = 0;
-                ;
-                static int _asyncWhileEndAnchor = 0;
-                ;
-                _asyncWhileStartAnchor = _asyncSequenceCurrentStep;
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        if (timesRan < 10)
-                        {
-                            _asyncSequenceStep++;
-                            ;
-                        }
-                        else
-                        {
-                            _asyncSequenceStep = _asyncWhileEndAnchor;
-                            ;
-                        }
-                    };
-                };
-                ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/ /*////////////////////////////////////*/
-                {
-                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                    {
-                        {
-                            _asyncSequenceStep++;
-                            ;
                             {
-                                timesRan += 0.5;
-                                Serial.print("Times ran: ");
-                                Serial.println(timesRan);
+                                _asyncSequenceStep = _asyncWhileStartAnchor;
+                                ;
                             };
                         };
-                    };
-                    ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
-                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                    {
+                        _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                         {
-                            _asyncSequenceStep++;
-                            ;
-                            {
-                                _asyncSequenceDelayTimer = millis();
-                            };
-                        };
-                    };
-                    ;
-                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                    {
-                        {
-                            if ((millis() - _asyncSequenceDelayTimer) >= 500)
                             {
                                 _asyncSequenceStep++;
                                 ;
-                            }
-                        };
-                    }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
-                    ;
-                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                    {
-                        {
-                            _asyncSequenceStep++;
-                            ;
-                            {
-                                timesRan += 0.5;
-                                Serial.print("Times ran: ");
-                                Serial.println(timesRan);
                             };
                         };
-                    };
-                    ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
-                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                    {
-                        {
-                            _asyncSequenceStep++;
-                            ;
-                            {
-                                _asyncSequenceDelayTimer = millis();
-                            };
-                        };
-                    };
-                    ;
-                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                    {
-                        {
-                            if ((millis() - _asyncSequenceDelayTimer) >= 500)
-                            {
-                                _asyncSequenceStep++;
-                                ;
-                            }
-                        };
-                    }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
-                    ;
-                }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/ /*////////////////////////////////////*/
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        _asyncSequenceStep = _asyncWhileStartAnchor;
                         ;
-                    };
-                };
-                _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        _asyncSequenceStep++;
-                        ;
-                    };
-                };
-                ;
-            } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/; /*////////////////////////////////////*/ /*////////// Begin for-loop //////////*/ /*////////////////////////////////////*/
-            {
-                static int i;
+                    } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/;
+                } /*////////////////////////////////////*/ /*/////////// End for-loop ///////////*/ /*////////////////////////////////////*/;
+                static float timesRan;
                 if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                 {
                     {
                         _asyncSequenceStep++;
                         ;
                         {
-                            i = 0;
-                        };
-                    };
-                };
-                ;
-                ;
-                static bool _asyncForIsFirstRun;
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        _asyncSequenceStep++;
-                        ;
-                        {
-                            _asyncForIsFirstRun = true;
+                            timesRan = 0;
                         };
                     };
                 };
@@ -818,7 +716,7 @@ bool updateMainSequence()
                     if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                     {
                         {
-                            if (true)
+                            if (timesRan < 10)
                             {
                                 _asyncSequenceStep++;
                                 ;
@@ -838,60 +736,71 @@ bool updateMainSequence()
                                 _asyncSequenceStep++;
                                 ;
                                 {
-                                    if (_asyncForIsFirstRun)
-                                    {
-                                        _asyncForIsFirstRun = false;
-                                    }
-                                    else
-                                    {
-                                        i++;
-                                    }
-                                    if (!(i <= 5))
-                                    {
-                                        _asyncSequenceStep = _asyncWhileEndAnchor;
-                                        ;
-                                        ;
-                                    }
+                                    timesRan += 0.5;
+                                    Serial.print("Times ran: ");
+                                    Serial.println(timesRan);
                                 };
                             };
                         };
-                        ; /*////////////////////////////////////*/ /*//////// Begin for-loop task ///////*/ /*////////////////////////////////////*/
+                        ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                         {
-                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                             {
+                                _asyncSequenceStep++;
+                                ;
+                                {
+                                    _asyncSequenceDelayTimer = millis();
+                                };
+                            };
+                        };
+                        ;
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                if ((millis() - _asyncSequenceDelayTimer) >= 500)
                                 {
                                     _asyncSequenceStep++;
                                     ;
-                                    {
-                                        Serial.println(i);
-                                    };
+                                }
+                            };
+                        }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+                        ;
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                                {
+                                    timesRan += 0.5;
+                                    Serial.print("Times ran: ");
+                                    Serial.println(timesRan);
                                 };
                             };
-                            ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
-                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        };
+                        ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
                             {
+                                _asyncSequenceStep++;
+                                ;
+                                {
+                                    _asyncSequenceDelayTimer = millis();
+                                };
+                            };
+                        };
+                        ;
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                if ((millis() - _asyncSequenceDelayTimer) >= 500)
                                 {
                                     _asyncSequenceStep++;
                                     ;
-                                    {
-                                        _asyncSequenceDelayTimer = millis();
-                                    };
-                                };
+                                }
                             };
-                            ;
-                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                            {
-                                {
-                                    if ((millis() - _asyncSequenceDelayTimer) >= 1000)
-                                    {
-                                        _asyncSequenceStep++;
-                                        ;
-                                    }
-                                };
-                            }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
-                            ;
-                        }; /*////////////////////////////////////*/ /*//////// End for-loop task /////////*/ /*////////////////////////////////////*/
-                    }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/     /*////////////////////////////////////*/
+                        }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+                        ;
+                    }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/ /*////////////////////////////////////*/
                     if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                     {
                         {
@@ -908,446 +817,135 @@ bool updateMainSequence()
                         };
                     };
                     ;
-                } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/;
-            } /*////////////////////////////////////*/ /*/////////// End for-loop ///////////*/ /*////////////////////////////////////*/; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/ /*////////////////////////////////////*/
-            {
-                static int _asyncWhileStartAnchor = 0;
-                ;
-                static int _asyncWhileEndAnchor = 0;
-                ;
-                _asyncWhileStartAnchor = _asyncSequenceCurrentStep;
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/; /*////////////////////////////////////*/ /*////////// Begin for-loop //////////*/ /*////////////////////////////////////*/
                 {
-                    {
-                        if (!digitalRead(BUTTON_PIN))
-                        {
-                            _asyncSequenceStep++;
-                            ;
-                        }
-                        else
-                        {
-                            _asyncSequenceStep = _asyncWhileEndAnchor;
-                            ;
-                        }
-                    };
-                };
-                ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/ /*////////////////////////////////////*/
-                {
+                    static int i;
                     if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                     {
                         {
                             _asyncSequenceStep++;
                             ;
-                            { /* This sub-sequence will run only*/                                                  /* when this while loop is active.*/
-                                { /*////////////////////////////////////*/ /*////////// Begin sequence //////////*/ /*////////////////////////////////////*/
-                                    static int _asyncSequenceStep = 0;
-                                    static unsigned long _asyncSequenceDelayTimer = 0;
-                                    int _asyncSequenceCurrentStep = 0; /*////////////////////////////////////*/ /*//////// Begin sequence steps //////*/ /*////////////////////////////////////*/
-                                    {
-                                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                                        {
-                                            {
-                                                _asyncSequenceStep++;
-                                                ;
-                                                {
-                                                    Serial.println("Waiting for button press");
-                                                };
-                                            };
-                                        };
-                                        ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
-                                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                                        {
-                                            {
-                                                _asyncSequenceStep++;
-                                                ;
-                                                {
-                                                    _asyncSequenceDelayTimer = millis();
-                                                };
-                                            };
-                                        };
-                                        ;
-                                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                                        {
-                                            {
-                                                if ((millis() - _asyncSequenceDelayTimer) >= 1000)
-                                                {
-                                                    _asyncSequenceStep++;
-                                                    ;
-                                                }
-                                            };
-                                        }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
-                                        ;
-                                    }; /*////////////////////////////////////*/ /*//////// End sequences steps ///////*/ /*////////////////////////////////////*/
-                                    if (_asyncSequenceStep == _asyncSequenceCurrentStep)
-                                    {
-                                        _asyncSequenceStep = 0;
-                                    }
-                                } /*////////////////////////////////////*/ /*/////////// End sequence ///////////*/ /*////////////////////////////////////*/;
+                            {
+                                i = 0;
                             };
                         };
                     };
                     ;
-                }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/ /*////////////////////////////////////*/
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        _asyncSequenceStep = _asyncWhileStartAnchor;
-                        ;
-                    };
-                };
-                _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        _asyncSequenceStep++;
-                        ;
-                    };
-                };
-                ;
-            } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/ /*////////////////////////////////////*/
-            {
-                static int _asyncWhileStartAnchor = 0;
-                ;
-                static int _asyncWhileEndAnchor = 0;
-                ;
-                _asyncWhileStartAnchor = _asyncSequenceCurrentStep;
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        if (!secondarySequence())
-                        {
-                            _asyncSequenceStep++;
-                            ;
-                        }
-                        else
-                        {
-                            _asyncSequenceStep = _asyncWhileEndAnchor;
-                            ;
-                        }
-                    };
-                };
-                ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/ /*////////////////////////////////////*/
-                {
+                    ;
+                    static bool _asyncForIsFirstRun;
                     if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                     {
                         {
                             _asyncSequenceStep++;
                             ;
-                            { /* Pulse LED while waiting for*/                                                      /* the secondary sequence to complete*/
-                                { /*////////////////////////////////////*/ /*////////// Begin sequence //////////*/ /*////////////////////////////////////*/
-                                    static int _asyncSequenceStep = 0;
-                                    static unsigned long _asyncSequenceDelayTimer = 0;
-                                    int _asyncSequenceCurrentStep = 0; /*////////////////////////////////////*/ /*//////// Begin sequence steps //////*/ /*////////////////////////////////////*/
-                                    { /*////////////////////////////////////*/ /*////////// Begin for-loop //////////*/                                  /*////////////////////////////////////*/
-                                        {
-                                            static int i;
-                                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                                            {
-                                                {
-                                                    _asyncSequenceStep++;
-                                                    ;
-                                                    {
-                                                        i = 0;
-                                                    };
-                                                };
-                                            };
-                                            ;
-                                            ;
-                                            static bool _asyncForIsFirstRun;
-                                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                                            {
-                                                {
-                                                    _asyncSequenceStep++;
-                                                    ;
-                                                    {
-                                                        _asyncForIsFirstRun = true;
-                                                    };
-                                                };
-                                            };
-                                            ;
-                                            ; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/ /*////////////////////////////////////*/
-                                            {
-                                                static int _asyncWhileStartAnchor = 0;
-                                                ;
-                                                static int _asyncWhileEndAnchor = 0;
-                                                ;
-                                                _asyncWhileStartAnchor = _asyncSequenceCurrentStep;
-                                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                                                {
-                                                    {
-                                                        if (true)
-                                                        {
-                                                            _asyncSequenceStep++;
-                                                            ;
-                                                        }
-                                                        else
-                                                        {
-                                                            _asyncSequenceStep = _asyncWhileEndAnchor;
-                                                            ;
-                                                        }
-                                                    };
-                                                };
-                                                ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/ /*////////////////////////////////////*/
-                                                {
-                                                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                                                    {
-                                                        {
-                                                            _asyncSequenceStep++;
-                                                            ;
-                                                            {
-                                                                if (_asyncForIsFirstRun)
-                                                                {
-                                                                    _asyncForIsFirstRun = false;
-                                                                }
-                                                                else
-                                                                {
-                                                                    i++;
-                                                                }
-                                                                if (!(i <= 255))
-                                                                {
-                                                                    _asyncSequenceStep = _asyncWhileEndAnchor;
-                                                                    ;
-                                                                    ;
-                                                                }
-                                                            };
-                                                        };
-                                                    };
-                                                    ; /*////////////////////////////////////*/ /*//////// Begin for-loop task ///////*/ /*////////////////////////////////////*/
-                                                    {
-                                                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                                                        {
-                                                            {
-                                                                _asyncSequenceStep++;
-                                                                ;
-                                                                {
-                                                                    analogWrite(LED_PIN, i);
-                                                                };
-                                                            };
-                                                        };
-                                                        ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
-                                                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                                                        {
-                                                            {
-                                                                _asyncSequenceStep++;
-                                                                ;
-                                                                {
-                                                                    _asyncSequenceDelayTimer = millis();
-                                                                };
-                                                            };
-                                                        };
-                                                        ;
-                                                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                                                        {
-                                                            {
-                                                                if ((millis() - _asyncSequenceDelayTimer) >= 2)
-                                                                {
-                                                                    _asyncSequenceStep++;
-                                                                    ;
-                                                                }
-                                                            };
-                                                        }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
-                                                        ;
-                                                    }; /*////////////////////////////////////*/ /*//////// End for-loop task /////////*/ /*////////////////////////////////////*/
-                                                }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/     /*////////////////////////////////////*/
-                                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                                                {
-                                                    {
-                                                        _asyncSequenceStep = _asyncWhileStartAnchor;
-                                                        ;
-                                                    };
-                                                };
-                                                _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
-                                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                                                {
-                                                    {
-                                                        _asyncSequenceStep++;
-                                                        ;
-                                                    };
-                                                };
-                                                ;
-                                            } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/;
-                                        } /*////////////////////////////////////*/ /*/////////// End for-loop ///////////*/ /*////////////////////////////////////*/; /*////////////////////////////////////*/ /*////////// Begin for-loop //////////*/ /*////////////////////////////////////*/
-                                        {
-                                            static int i;
-                                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                                            {
-                                                {
-                                                    _asyncSequenceStep++;
-                                                    ;
-                                                    {
-                                                        i = 255;
-                                                    };
-                                                };
-                                            };
-                                            ;
-                                            ;
-                                            static bool _asyncForIsFirstRun;
-                                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                                            {
-                                                {
-                                                    _asyncSequenceStep++;
-                                                    ;
-                                                    {
-                                                        _asyncForIsFirstRun = true;
-                                                    };
-                                                };
-                                            };
-                                            ;
-                                            ; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/ /*////////////////////////////////////*/
-                                            {
-                                                static int _asyncWhileStartAnchor = 0;
-                                                ;
-                                                static int _asyncWhileEndAnchor = 0;
-                                                ;
-                                                _asyncWhileStartAnchor = _asyncSequenceCurrentStep;
-                                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                                                {
-                                                    {
-                                                        if (true)
-                                                        {
-                                                            _asyncSequenceStep++;
-                                                            ;
-                                                        }
-                                                        else
-                                                        {
-                                                            _asyncSequenceStep = _asyncWhileEndAnchor;
-                                                            ;
-                                                        }
-                                                    };
-                                                };
-                                                ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/ /*////////////////////////////////////*/
-                                                {
-                                                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                                                    {
-                                                        {
-                                                            _asyncSequenceStep++;
-                                                            ;
-                                                            {
-                                                                if (_asyncForIsFirstRun)
-                                                                {
-                                                                    _asyncForIsFirstRun = false;
-                                                                }
-                                                                else
-                                                                {
-                                                                    i--;
-                                                                }
-                                                                if (!(i >= 0))
-                                                                {
-                                                                    _asyncSequenceStep = _asyncWhileEndAnchor;
-                                                                    ;
-                                                                    ;
-                                                                }
-                                                            };
-                                                        };
-                                                    };
-                                                    ; /*////////////////////////////////////*/ /*//////// Begin for-loop task ///////*/ /*////////////////////////////////////*/
-                                                    {
-                                                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                                                        {
-                                                            {
-                                                                _asyncSequenceStep++;
-                                                                ;
-                                                                {
-                                                                    analogWrite(LED_PIN, i);
-                                                                };
-                                                            };
-                                                        };
-                                                        ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
-                                                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                                                        {
-                                                            {
-                                                                _asyncSequenceStep++;
-                                                                ;
-                                                                {
-                                                                    _asyncSequenceDelayTimer = millis();
-                                                                };
-                                                            };
-                                                        };
-                                                        ;
-                                                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                                                        {
-                                                            {
-                                                                if ((millis() - _asyncSequenceDelayTimer) >= 2)
-                                                                {
-                                                                    _asyncSequenceStep++;
-                                                                    ;
-                                                                }
-                                                            };
-                                                        }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
-                                                        ;
-                                                    }; /*////////////////////////////////////*/ /*//////// End for-loop task /////////*/ /*////////////////////////////////////*/
-                                                }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/     /*////////////////////////////////////*/
-                                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                                                {
-                                                    {
-                                                        _asyncSequenceStep = _asyncWhileStartAnchor;
-                                                        ;
-                                                    };
-                                                };
-                                                _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
-                                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                                                {
-                                                    {
-                                                        _asyncSequenceStep++;
-                                                        ;
-                                                    };
-                                                };
-                                                ;
-                                            } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/;
-                                        } /*////////////////////////////////////*/ /*/////////// End for-loop ///////////*/ /*////////////////////////////////////*/
-                                    }; /*////////////////////////////////////*/ /*//////// End sequences steps ///////*/    /*////////////////////////////////////*/
-                                    if (_asyncSequenceStep == _asyncSequenceCurrentStep)
-                                    {
-                                        _asyncSequenceStep = 0;
-                                    }
-                                } /*////////////////////////////////////*/ /*/////////// End sequence ///////////*/ /*////////////////////////////////////*/;
+                            {
+                                _asyncForIsFirstRun = true;
                             };
                         };
                     };
                     ;
-                }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/ /*////////////////////////////////////*/
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
+                    ; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/ /*////////////////////////////////////*/
                     {
-                        _asyncSequenceStep = _asyncWhileStartAnchor;
+                        static int _asyncWhileStartAnchor = 0;
                         ;
-                    };
-                };
-                _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        _asyncSequenceStep++;
+                        static int _asyncWhileEndAnchor = 0;
                         ;
-                    };
-                };
-                ;
-            } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/; /* Flash for 5 seconds*/ /*////////////////////////////////////*/ /*///// Begin while-duration-loop ////*/ /*////////////////////////////////////*/
-            {
-                static unsigned long _asyncSequenceWhileDurationTimer;
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        _asyncSequenceStep++;
-                        ;
+                        _asyncWhileStartAnchor = _asyncSequenceCurrentStep;
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                         {
-                            _asyncSequenceWhileDurationTimer = 0;
+                            {
+                                if (true)
+                                {
+                                    _asyncSequenceStep++;
+                                    ;
+                                }
+                                else
+                                {
+                                    _asyncSequenceStep = _asyncWhileEndAnchor;
+                                    ;
+                                }
+                            };
                         };
-                    };
-                };
-                ;
-                ;
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        _asyncSequenceStep++;
-                        ;
+                        ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/ /*////////////////////////////////////*/
                         {
-                            _asyncSequenceWhileDurationTimer = millis();
+                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                            {
+                                {
+                                    _asyncSequenceStep++;
+                                    ;
+                                    {
+                                        if (_asyncForIsFirstRun)
+                                        {
+                                            _asyncForIsFirstRun = false;
+                                        }
+                                        else
+                                        {
+                                            i++;
+                                        }
+                                        if (!(i <= 5))
+                                        {
+                                            _asyncSequenceStep = _asyncWhileEndAnchor;
+                                            ;
+                                            ;
+                                        }
+                                    };
+                                };
+                            };
+                            ; /*////////////////////////////////////*/ /*//////// Begin for-loop task ///////*/ /*////////////////////////////////////*/
+                            {
+                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                {
+                                    {
+                                        _asyncSequenceStep++;
+                                        ;
+                                        {
+                                            Serial.println(i);
+                                        };
+                                    };
+                                };
+                                ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
+                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                {
+                                    {
+                                        _asyncSequenceStep++;
+                                        ;
+                                        {
+                                            _asyncSequenceDelayTimer = millis();
+                                        };
+                                    };
+                                };
+                                ;
+                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                {
+                                    {
+                                        if ((millis() - _asyncSequenceDelayTimer) >= 1000)
+                                        {
+                                            _asyncSequenceStep++;
+                                            ;
+                                        }
+                                    };
+                                }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+                                ;
+                            }; /*////////////////////////////////////*/ /*//////// End for-loop task /////////*/ /*////////////////////////////////////*/
+                        }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/     /*////////////////////////////////////*/
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                _asyncSequenceStep = _asyncWhileStartAnchor;
+                                ;
+                            };
                         };
-                    };
-                };
-                ; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/ /*////////////////////////////////////*/
+                        _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                            };
+                        };
+                        ;
+                    } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/;
+                } /*////////////////////////////////////*/ /*/////////// End for-loop ///////////*/ /*////////////////////////////////////*/; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/ /*////////////////////////////////////*/
                 {
                     static int _asyncWhileStartAnchor = 0;
                     ;
@@ -1357,7 +955,7 @@ bool updateMainSequence()
                     if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                     {
                         {
-                            if ((millis() - _asyncSequenceWhileDurationTimer) < 5000)
+                            if (!digitalRead(BUTTON_PIN))
                             {
                                 _asyncSequenceStep++;
                                 ;
@@ -1371,74 +969,700 @@ bool updateMainSequence()
                     };
                     ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/ /*////////////////////////////////////*/
                     {
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                         {
-                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                             {
-                                {
-                                    _asyncSequenceStep++;
-                                    ;
+                                _asyncSequenceStep++;
+                                ;
+                                { /* This sub-sequence will run only*/ /* when this while loop is active.*/
                                     {
-                                        digitalWrite(LED_PIN, 0x1);
-                                    };
+                                        while (true)
+                                        { /*////////////////////////////////////*/ /*////////// Begin sequence //////////*/ /*////////////////////////////////////*/
+                                            static int _asyncSequenceStep = 0;
+                                            static unsigned long _asyncSequenceDelayTimer = 0; /* The dry run runs a single empty step without */ /* continuing so that all sequence indexes can be */ /* counted. This is needed for stepAnchors to work. */
+                                            static bool _asyncDryRun = true;
+                                            int _asyncSequenceCurrentStep = 0; /*////////////////////////////////////*/ /*//////// Begin dry run step ////////*/ /*////////////////////////////////////*/
+                                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                            {
+                                                {
+                                                    if (!_asyncDryRun)
+                                                    {
+                                                        _asyncSequenceStep++;
+                                                        ;
+                                                    }
+                                                };
+                                            }; /*////////////////////////////////////*/ /*//////// End dry run step //////////*/ /*////////////////////////////////////*/ /*////////////////////////////////////*/ /*//////// Begin sequence steps //////*/ /*////////////////////////////////////*/
+                                            {
+                                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                                {
+                                                    {
+                                                        _asyncSequenceStep++;
+                                                        ;
+                                                        {
+                                                            Serial.println("Waiting for button press");
+                                                        };
+                                                    };
+                                                };
+                                                ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
+                                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                                {
+                                                    {
+                                                        _asyncSequenceStep++;
+                                                        ;
+                                                        {
+                                                            _asyncSequenceDelayTimer = millis();
+                                                        };
+                                                    };
+                                                };
+                                                ;
+                                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                                {
+                                                    {
+                                                        if ((millis() - _asyncSequenceDelayTimer) >= 1000)
+                                                        {
+                                                            _asyncSequenceStep++;
+                                                            ;
+                                                        }
+                                                    };
+                                                }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+                                                ;
+                                            }; /*////////////////////////////////////*/ /*//////// End sequences steps ///////*/ /*////////////////////////////////////*/
+                                            if (_asyncSequenceStep == _asyncSequenceCurrentStep)
+                                            {
+                                                _asyncSequenceStep = 0;
+                                            } /*////////////////////////////////////*/ /*//////// Begin dry run check ////////*/ /*////////////////////////////////////*/
+                                            if (_asyncDryRun)
+                                            {
+                                                _asyncDryRun = false;
+                                                continue;
+                                            }
+                                            else
+                                            {
+                                                break;
+                                            } /*////////////////////////////////////*/ /*//////// End dry run check /////////*/ /*////////////////////////////////////*/
+                                        }
+                                    } /*////////////////////////////////////*/ /*/////////// End sequence ///////////*/ /*////////////////////////////////////*/;
                                 };
                             };
-                            ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
-                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                            {
-                                {
-                                    _asyncSequenceStep++;
-                                    ;
-                                    {
-                                        _asyncSequenceDelayTimer = millis();
-                                    };
-                                };
-                            };
-                            ;
-                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                            {
-                                {
-                                    if ((millis() - _asyncSequenceDelayTimer) >= 1000)
-                                    {
-                                        _asyncSequenceStep++;
-                                        ;
-                                    }
-                                };
-                            }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
-                            ;
-                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                            {
-                                {
-                                    _asyncSequenceStep++;
-                                    ;
-                                    {
-                                        digitalWrite(LED_PIN, 0x0);
-                                    };
-                                };
-                            };
-                            ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
-                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                            {
-                                {
-                                    _asyncSequenceStep++;
-                                    ;
-                                    {
-                                        _asyncSequenceDelayTimer = millis();
-                                    };
-                                };
-                            };
-                            ;
-                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                            {
-                                {
-                                    if ((millis() - _asyncSequenceDelayTimer) >= 1000)
-                                    {
-                                        _asyncSequenceStep++;
-                                        ;
-                                    }
-                                };
-                            }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+                        };
+                        ;
+                    }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/ /*////////////////////////////////////*/
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep = _asyncWhileStartAnchor;
                             ;
                         };
+                    };
+                    _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                        };
+                    };
+                    ;
+                } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/ /*////////////////////////////////////*/
+                {
+                    static int _asyncWhileStartAnchor = 0;
+                    ;
+                    static int _asyncWhileEndAnchor = 0;
+                    ;
+                    _asyncWhileStartAnchor = _asyncSequenceCurrentStep;
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            if (!secondarySequence())
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                            }
+                            else
+                            {
+                                _asyncSequenceStep = _asyncWhileEndAnchor;
+                                ;
+                            }
+                        };
+                    };
+                    ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/ /*////////////////////////////////////*/
+                    {
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                                { /* Pulse LED while waiting for*/ /* the secondary sequence to complete*/
+                                    {
+                                        while (true)
+                                        { /*////////////////////////////////////*/ /*////////// Begin sequence //////////*/ /*////////////////////////////////////*/
+                                            static int _asyncSequenceStep = 0;
+                                            static unsigned long _asyncSequenceDelayTimer = 0; /* The dry run runs a single empty step without */ /* continuing so that all sequence indexes can be */ /* counted. This is needed for stepAnchors to work. */
+                                            static bool _asyncDryRun = true;
+                                            int _asyncSequenceCurrentStep = 0; /*////////////////////////////////////*/ /*//////// Begin dry run step ////////*/ /*////////////////////////////////////*/
+                                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                            {
+                                                {
+                                                    if (!_asyncDryRun)
+                                                    {
+                                                        _asyncSequenceStep++;
+                                                        ;
+                                                    }
+                                                };
+                                            }; /*////////////////////////////////////*/ /*//////// End dry run step //////////*/ /*////////////////////////////////////*/ /*////////////////////////////////////*/ /*//////// Begin sequence steps //////*/ /*////////////////////////////////////*/
+                                            { /*////////////////////////////////////*/ /*////////// Begin for-loop //////////*/                                                                                                                             /*////////////////////////////////////*/
+                                                {
+                                                    static int i;
+                                                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                                    {
+                                                        {
+                                                            _asyncSequenceStep++;
+                                                            ;
+                                                            {
+                                                                i = 0;
+                                                            };
+                                                        };
+                                                    };
+                                                    ;
+                                                    ;
+                                                    static bool _asyncForIsFirstRun;
+                                                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                                    {
+                                                        {
+                                                            _asyncSequenceStep++;
+                                                            ;
+                                                            {
+                                                                _asyncForIsFirstRun = true;
+                                                            };
+                                                        };
+                                                    };
+                                                    ;
+                                                    ; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/ /*////////////////////////////////////*/
+                                                    {
+                                                        static int _asyncWhileStartAnchor = 0;
+                                                        ;
+                                                        static int _asyncWhileEndAnchor = 0;
+                                                        ;
+                                                        _asyncWhileStartAnchor = _asyncSequenceCurrentStep;
+                                                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                                        {
+                                                            {
+                                                                if (true)
+                                                                {
+                                                                    _asyncSequenceStep++;
+                                                                    ;
+                                                                }
+                                                                else
+                                                                {
+                                                                    _asyncSequenceStep = _asyncWhileEndAnchor;
+                                                                    ;
+                                                                }
+                                                            };
+                                                        };
+                                                        ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/ /*////////////////////////////////////*/
+                                                        {
+                                                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                                            {
+                                                                {
+                                                                    _asyncSequenceStep++;
+                                                                    ;
+                                                                    {
+                                                                        if (_asyncForIsFirstRun)
+                                                                        {
+                                                                            _asyncForIsFirstRun = false;
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            i++;
+                                                                        }
+                                                                        if (!(i <= 255))
+                                                                        {
+                                                                            _asyncSequenceStep = _asyncWhileEndAnchor;
+                                                                            ;
+                                                                            ;
+                                                                        }
+                                                                    };
+                                                                };
+                                                            };
+                                                            ; /*////////////////////////////////////*/ /*//////// Begin for-loop task ///////*/ /*////////////////////////////////////*/
+                                                            {
+                                                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                                                {
+                                                                    {
+                                                                        _asyncSequenceStep++;
+                                                                        ;
+                                                                        {
+                                                                            analogWrite(LED_PIN, i);
+                                                                        };
+                                                                    };
+                                                                };
+                                                                ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
+                                                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                                                {
+                                                                    {
+                                                                        _asyncSequenceStep++;
+                                                                        ;
+                                                                        {
+                                                                            _asyncSequenceDelayTimer = millis();
+                                                                        };
+                                                                    };
+                                                                };
+                                                                ;
+                                                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                                                {
+                                                                    {
+                                                                        if ((millis() - _asyncSequenceDelayTimer) >= 2)
+                                                                        {
+                                                                            _asyncSequenceStep++;
+                                                                            ;
+                                                                        }
+                                                                    };
+                                                                }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+                                                                ;
+                                                            }; /*////////////////////////////////////*/ /*//////// End for-loop task /////////*/ /*////////////////////////////////////*/
+                                                        }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/     /*////////////////////////////////////*/
+                                                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                                        {
+                                                            {
+                                                                _asyncSequenceStep = _asyncWhileStartAnchor;
+                                                                ;
+                                                            };
+                                                        };
+                                                        _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
+                                                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                                        {
+                                                            {
+                                                                _asyncSequenceStep++;
+                                                                ;
+                                                            };
+                                                        };
+                                                        ;
+                                                    } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/;
+                                                } /*////////////////////////////////////*/ /*/////////// End for-loop ///////////*/ /*////////////////////////////////////*/; /*////////////////////////////////////*/ /*////////// Begin for-loop //////////*/ /*////////////////////////////////////*/
+                                                {
+                                                    static int i;
+                                                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                                    {
+                                                        {
+                                                            _asyncSequenceStep++;
+                                                            ;
+                                                            {
+                                                                i = 255;
+                                                            };
+                                                        };
+                                                    };
+                                                    ;
+                                                    ;
+                                                    static bool _asyncForIsFirstRun;
+                                                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                                    {
+                                                        {
+                                                            _asyncSequenceStep++;
+                                                            ;
+                                                            {
+                                                                _asyncForIsFirstRun = true;
+                                                            };
+                                                        };
+                                                    };
+                                                    ;
+                                                    ; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/ /*////////////////////////////////////*/
+                                                    {
+                                                        static int _asyncWhileStartAnchor = 0;
+                                                        ;
+                                                        static int _asyncWhileEndAnchor = 0;
+                                                        ;
+                                                        _asyncWhileStartAnchor = _asyncSequenceCurrentStep;
+                                                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                                        {
+                                                            {
+                                                                if (true)
+                                                                {
+                                                                    _asyncSequenceStep++;
+                                                                    ;
+                                                                }
+                                                                else
+                                                                {
+                                                                    _asyncSequenceStep = _asyncWhileEndAnchor;
+                                                                    ;
+                                                                }
+                                                            };
+                                                        };
+                                                        ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/ /*////////////////////////////////////*/
+                                                        {
+                                                            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                                            {
+                                                                {
+                                                                    _asyncSequenceStep++;
+                                                                    ;
+                                                                    {
+                                                                        if (_asyncForIsFirstRun)
+                                                                        {
+                                                                            _asyncForIsFirstRun = false;
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            i--;
+                                                                        }
+                                                                        if (!(i >= 0))
+                                                                        {
+                                                                            _asyncSequenceStep = _asyncWhileEndAnchor;
+                                                                            ;
+                                                                            ;
+                                                                        }
+                                                                    };
+                                                                };
+                                                            };
+                                                            ; /*////////////////////////////////////*/ /*//////// Begin for-loop task ///////*/ /*////////////////////////////////////*/
+                                                            {
+                                                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                                                {
+                                                                    {
+                                                                        _asyncSequenceStep++;
+                                                                        ;
+                                                                        {
+                                                                            analogWrite(LED_PIN, i);
+                                                                        };
+                                                                    };
+                                                                };
+                                                                ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
+                                                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                                                {
+                                                                    {
+                                                                        _asyncSequenceStep++;
+                                                                        ;
+                                                                        {
+                                                                            _asyncSequenceDelayTimer = millis();
+                                                                        };
+                                                                    };
+                                                                };
+                                                                ;
+                                                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                                                {
+                                                                    {
+                                                                        if ((millis() - _asyncSequenceDelayTimer) >= 2)
+                                                                        {
+                                                                            _asyncSequenceStep++;
+                                                                            ;
+                                                                        }
+                                                                    };
+                                                                }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+                                                                ;
+                                                            }; /*////////////////////////////////////*/ /*//////// End for-loop task /////////*/ /*////////////////////////////////////*/
+                                                        }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/     /*////////////////////////////////////*/
+                                                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                                        {
+                                                            {
+                                                                _asyncSequenceStep = _asyncWhileStartAnchor;
+                                                                ;
+                                                            };
+                                                        };
+                                                        _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
+                                                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                                        {
+                                                            {
+                                                                _asyncSequenceStep++;
+                                                                ;
+                                                            };
+                                                        };
+                                                        ;
+                                                    } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/;
+                                                } /*////////////////////////////////////*/ /*/////////// End for-loop ///////////*/ /*////////////////////////////////////*/
+                                            }; /*////////////////////////////////////*/ /*//////// End sequences steps ///////*/    /*////////////////////////////////////*/
+                                            if (_asyncSequenceStep == _asyncSequenceCurrentStep)
+                                            {
+                                                _asyncSequenceStep = 0;
+                                            } /*////////////////////////////////////*/ /*//////// Begin dry run check ////////*/ /*////////////////////////////////////*/
+                                            if (_asyncDryRun)
+                                            {
+                                                _asyncDryRun = false;
+                                                continue;
+                                            }
+                                            else
+                                            {
+                                                break;
+                                            } /*////////////////////////////////////*/ /*//////// End dry run check /////////*/ /*////////////////////////////////////*/
+                                        }
+                                    } /*////////////////////////////////////*/ /*/////////// End sequence ///////////*/ /*////////////////////////////////////*/;
+                                };
+                            };
+                        };
+                        ;
+                    }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/ /*////////////////////////////////////*/
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep = _asyncWhileStartAnchor;
+                            ;
+                        };
+                    };
+                    _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                        };
+                    };
+                    ;
+                } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/; /* Flash for 5 seconds*/ /*////////////////////////////////////*/ /*///// Begin while-duration-loop ////*/ /*////////////////////////////////////*/
+                {
+                    static unsigned long _asyncSequenceWhileDurationTimer;
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                            {
+                                _asyncSequenceWhileDurationTimer = 0;
+                            };
+                        };
+                    };
+                    ;
+                    ;
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                            {
+                                _asyncSequenceWhileDurationTimer = millis();
+                            };
+                        };
+                    };
+                    ; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/ /*////////////////////////////////////*/
+                    {
+                        static int _asyncWhileStartAnchor = 0;
+                        ;
+                        static int _asyncWhileEndAnchor = 0;
+                        ;
+                        _asyncWhileStartAnchor = _asyncSequenceCurrentStep;
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                if ((millis() - _asyncSequenceWhileDurationTimer) < 5000)
+                                {
+                                    _asyncSequenceStep++;
+                                    ;
+                                }
+                                else
+                                {
+                                    _asyncSequenceStep = _asyncWhileEndAnchor;
+                                    ;
+                                }
+                            };
+                        };
+                        ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/ /*////////////////////////////////////*/
+                        {
+                            {
+                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                {
+                                    {
+                                        _asyncSequenceStep++;
+                                        ;
+                                        {
+                                            digitalWrite(LED_PIN, 0x1);
+                                        };
+                                    };
+                                };
+                                ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
+                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                {
+                                    {
+                                        _asyncSequenceStep++;
+                                        ;
+                                        {
+                                            _asyncSequenceDelayTimer = millis();
+                                        };
+                                    };
+                                };
+                                ;
+                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                {
+                                    {
+                                        if ((millis() - _asyncSequenceDelayTimer) >= 1000)
+                                        {
+                                            _asyncSequenceStep++;
+                                            ;
+                                        }
+                                    };
+                                }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+                                ;
+                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                {
+                                    {
+                                        _asyncSequenceStep++;
+                                        ;
+                                        {
+                                            digitalWrite(LED_PIN, 0x0);
+                                        };
+                                    };
+                                };
+                                ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
+                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                {
+                                    {
+                                        _asyncSequenceStep++;
+                                        ;
+                                        {
+                                            _asyncSequenceDelayTimer = millis();
+                                        };
+                                    };
+                                };
+                                ;
+                                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                                {
+                                    {
+                                        if ((millis() - _asyncSequenceDelayTimer) >= 1000)
+                                        {
+                                            _asyncSequenceStep++;
+                                            ;
+                                        }
+                                    };
+                                }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+                                ;
+                            };
+                        }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/ /*////////////////////////////////////*/
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                _asyncSequenceStep = _asyncWhileStartAnchor;
+                                ;
+                            };
+                        };
+                        _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                            };
+                        };
+                        ;
+                    } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/;
+                } /*////////////////////////////////////*/ /*////// End while-duration-loop /////*/ /*////////////////////////////////////*/;
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        _asyncSequenceStep++;
+                        ;
+                        {
+                            digitalWrite(LED_PIN, 0x0);
+                            Serial.println("Hold the button to exit the loop");
+                        };
+                    };
+                };
+                ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        _asyncSequenceStep++;
+                        ;
+                        {
+                            _asyncSequenceDelayTimer = millis();
+                        };
+                    };
+                };
+                ;
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        if ((millis() - _asyncSequenceDelayTimer) >= 1000)
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                        }
+                    };
+                }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+                ; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/  /*////////////////////////////////////*/
+                {
+                    static int _asyncWhileStartAnchor = 0;
+                    ;
+                    static int _asyncWhileEndAnchor = 0;
+                    ;
+                    _asyncWhileStartAnchor = _asyncSequenceCurrentStep;
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            if (!digitalRead(BUTTON_PIN))
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                            }
+                            else
+                            {
+                                _asyncSequenceStep = _asyncWhileEndAnchor;
+                                ;
+                            }
+                        };
+                    };
+                    ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/ /*////////////////////////////////////*/
+                    {
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                                {
+                                    Serial.println("Step 2");
+                                };
+                            };
+                        };
+                        ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                                {
+                                    _asyncSequenceDelayTimer = millis();
+                                };
+                            };
+                        };
+                        ;
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                if ((millis() - _asyncSequenceDelayTimer) >= 2000)
+                                {
+                                    _asyncSequenceStep++;
+                                    ;
+                                }
+                            };
+                        }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+                        ;
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                                {
+                                    Serial.println("Step 3");
+                                };
+                            };
+                        };
+                        ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                                {
+                                    _asyncSequenceDelayTimer = millis();
+                                };
+                            };
+                        };
+                        ;
+                        if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                        {
+                            {
+                                if ((millis() - _asyncSequenceDelayTimer) >= 2000)
+                                {
+                                    _asyncSequenceStep++;
+                                    ;
+                                }
+                            };
+                        }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+                        ;
                     }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/ /*////////////////////////////////////*/
                     if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                     {
@@ -1457,197 +1681,65 @@ bool updateMainSequence()
                     };
                     ;
                 } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/;
-            } /*////////////////////////////////////*/ /*////// End while-duration-loop /////*/ /*////////////////////////////////////*/;
-            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-            {
-                {
-                    _asyncSequenceStep++;
-                    ;
-                    {
-                        digitalWrite(LED_PIN, 0x0);
-                        Serial.println("Hold the button to exit the loop");
-                    };
-                };
-            };
-            ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
-            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-            {
-                {
-                    _asyncSequenceStep++;
-                    ;
-                    {
-                        _asyncSequenceDelayTimer = millis();
-                    };
-                };
-            };
-            ;
-            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-            {
-                {
-                    if ((millis() - _asyncSequenceDelayTimer) >= 1000)
-                    {
-                        _asyncSequenceStep++;
-                        ;
-                    }
-                };
-            }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
-            ; /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/  /*////////////////////////////////////*/
-            {
-                static int _asyncWhileStartAnchor = 0;
-                ;
-                static int _asyncWhileEndAnchor = 0;
-                ;
-                _asyncWhileStartAnchor = _asyncSequenceCurrentStep;
                 if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                 {
                     {
-                        if (!digitalRead(BUTTON_PIN))
+                        _asyncSequenceStep++;
+                        ;
+                        {
+                            Serial.println("Complete!");
+                            Serial.println("Restarting ...");
+                        };
+                    };
+                };
+                ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        _asyncSequenceStep++;
+                        ;
+                        {
+                            _asyncSequenceDelayTimer = millis();
+                        };
+                    };
+                };
+                ;
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        if ((millis() - _asyncSequenceDelayTimer) >= 2000)
                         {
                             _asyncSequenceStep++;
                             ;
                         }
-                        else
-                        {
-                            _asyncSequenceStep = _asyncWhileEndAnchor;
-                            ;
-                        }
                     };
-                };
-                ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/ /*////////////////////////////////////*/
-                {
-                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                    {
-                        {
-                            _asyncSequenceStep++;
-                            ;
-                            {
-                                Serial.println("Step 2");
-                            };
-                        };
-                    };
-                    ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
-                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                    {
-                        {
-                            _asyncSequenceStep++;
-                            ;
-                            {
-                                _asyncSequenceDelayTimer = millis();
-                            };
-                        };
-                    };
-                    ;
-                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                    {
-                        {
-                            if ((millis() - _asyncSequenceDelayTimer) >= 2000)
-                            {
-                                _asyncSequenceStep++;
-                                ;
-                            }
-                        };
-                    }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
-                    ;
-                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                    {
-                        {
-                            _asyncSequenceStep++;
-                            ;
-                            {
-                                Serial.println("Step 3");
-                            };
-                        };
-                    };
-                    ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
-                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                    {
-                        {
-                            _asyncSequenceStep++;
-                            ;
-                            {
-                                _asyncSequenceDelayTimer = millis();
-                            };
-                        };
-                    };
-                    ;
-                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                    {
-                        {
-                            if ((millis() - _asyncSequenceDelayTimer) >= 2000)
-                            {
-                                _asyncSequenceStep++;
-                                ;
-                            }
-                        };
-                    }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
-                    ;
-                }; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/ /*////////////////////////////////////*/
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        _asyncSequenceStep = _asyncWhileStartAnchor;
-                        ;
-                    };
-                };
-                _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
+                }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+                ;
                 if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                 {
                     {
                         _asyncSequenceStep++;
                         ;
+                        {
+                            return true;
+                        };
                     };
                 };
                 ;
-            } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/;
-            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+            }; /*////////////////////////////////////*/ /*//////// End sequences steps ///////*/ /*////////////////////////////////////*/
+            if (_asyncSequenceStep == _asyncSequenceCurrentStep)
             {
-                {
-                    _asyncSequenceStep++;
-                    ;
-                    {
-                        Serial.println("Complete!");
-                        Serial.println("Restarting ...");
-                    };
-                };
-            };
-            ; /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
-            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                _asyncSequenceStep = 0;
+            } /*////////////////////////////////////*/ /*//////// Begin dry run check ////////*/ /*////////////////////////////////////*/
+            if (_asyncDryRun)
             {
-                {
-                    _asyncSequenceStep++;
-                    ;
-                    {
-                        _asyncSequenceDelayTimer = millis();
-                    };
-                };
-            };
-            ;
-            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                _asyncDryRun = false;
+                continue;
+            }
+            else
             {
-                {
-                    if ((millis() - _asyncSequenceDelayTimer) >= 2000)
-                    {
-                        _asyncSequenceStep++;
-                        ;
-                    }
-                };
-            }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
-            ;
-            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-            {
-                {
-                    _asyncSequenceStep++;
-                    ;
-                    {
-                        return true;
-                    };
-                };
-            };
-            ;
-        }; /*////////////////////////////////////*/ /*//////// End sequences steps ///////*/ /*////////////////////////////////////*/
-        if (_asyncSequenceStep == _asyncSequenceCurrentStep)
-        {
-            _asyncSequenceStep = 0;
+                break;
+            } /*////////////////////////////////////*/ /*//////// End dry run check /////////*/ /*////////////////////////////////////*/
         }
     } /*////////////////////////////////////*/ /*/////////// End sequence ///////////*/ /*////////////////////////////////////*/
 # 196 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
@@ -1662,161 +1754,184 @@ void loop()
     // the pin when the button changes. This means
     // it does not interfere with the main sequence's
     // control of the button when needed.
-    { /*////////////////////////////////////*/ /*////////// Begin sequence //////////*/ /*////////////////////////////////////*/
-        static int _asyncSequenceStep = 0;
-        static unsigned long _asyncSequenceDelayTimer = 0;
-        int _asyncSequenceCurrentStep = 0; /*////////////////////////////////////*/ /*//////// Begin sequence steps //////*/ /*////////////////////////////////////*/
-        { /* Wait for button press*/ /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/       /*////////////////////////////////////*/
-            {
-                static int _asyncWhileStartAnchor = 0;
-                ;
-                static int _asyncWhileEndAnchor = 0;
-                ;
-                _asyncWhileStartAnchor = _asyncSequenceCurrentStep;
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        if (!digitalRead(BUTTON_PIN))
-                        {
-                            _asyncSequenceStep++;
-                            ;
-                        }
-                        else
-                        {
-                            _asyncSequenceStep = _asyncWhileEndAnchor;
-                            ;
-                        }
-                    };
-                };
-                ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/   /*////////////////////////////////////*/
-                {}; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/ /*////////////////////////////////////*/
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        _asyncSequenceStep = _asyncWhileStartAnchor;
-                        ;
-                    };
-                };
-                _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-                {
-                    {
-                        _asyncSequenceStep++;
-                        ;
-                    };
-                };
-                ;
-            } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/;
+    {
+        while (true)
+        { /*////////////////////////////////////*/ /*////////// Begin sequence //////////*/ /*////////////////////////////////////*/
+            static int _asyncSequenceStep = 0;
+            static unsigned long _asyncSequenceDelayTimer = 0; /* The dry run runs a single empty step without */ /* continuing so that all sequence indexes can be */ /* counted. This is needed for stepAnchors to work. */
+            static bool _asyncDryRun = true;
+            int _asyncSequenceCurrentStep = 0; /*////////////////////////////////////*/ /*//////// Begin dry run step ////////*/ /*////////////////////////////////////*/
             if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
             {
                 {
-                    _asyncSequenceStep++;
-                    ;
-                    {
-                        digitalWrite(LED_PIN, 0x1);
-                    };
-                };
-            };
-            ; /* Debounce delay*/ /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
-            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-            {
-                {
-                    _asyncSequenceStep++;
-                    ;
-                    {
-                        _asyncSequenceDelayTimer = millis();
-                    };
-                };
-            };
-            ;
-            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-            {
-                {
-                    if ((millis() - _asyncSequenceDelayTimer) >= 50)
+                    if (!_asyncDryRun)
                     {
                         _asyncSequenceStep++;
                         ;
                     }
                 };
-            }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/                             /*////////////////////////////////////*/
-            ; /* Wait for button release*/ /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/ /*////////////////////////////////////*/
-            {
-                static int _asyncWhileStartAnchor = 0;
-                ;
-                static int _asyncWhileEndAnchor = 0;
-                ;
-                _asyncWhileStartAnchor = _asyncSequenceCurrentStep;
+            }; /*////////////////////////////////////*/ /*//////// End dry run step //////////*/ /*////////////////////////////////////*/ /*////////////////////////////////////*/ /*//////// Begin sequence steps //////*/ /*////////////////////////////////////*/
+            { /* Wait for button press*/ /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/                                                                                                  /*////////////////////////////////////*/
+                {
+                    static int _asyncWhileStartAnchor = 0;
+                    ;
+                    static int _asyncWhileEndAnchor = 0;
+                    ;
+                    _asyncWhileStartAnchor = _asyncSequenceCurrentStep;
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            if (!digitalRead(BUTTON_PIN))
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                            }
+                            else
+                            {
+                                _asyncSequenceStep = _asyncWhileEndAnchor;
+                                ;
+                            }
+                        };
+                    };
+                    ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/   /*////////////////////////////////////*/
+                    {}; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/ /*////////////////////////////////////*/
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep = _asyncWhileStartAnchor;
+                            ;
+                        };
+                    };
+                    _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                        };
+                    };
+                    ;
+                } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/;
                 if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                 {
                     {
-                        if (digitalRead(BUTTON_PIN))
+                        _asyncSequenceStep++;
+                        ;
+                        {
+                            digitalWrite(LED_PIN, 0x1);
+                        };
+                    };
+                };
+                ; /* Debounce delay*/ /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        _asyncSequenceStep++;
+                        ;
+                        {
+                            _asyncSequenceDelayTimer = millis();
+                        };
+                    };
+                };
+                ;
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        if ((millis() - _asyncSequenceDelayTimer) >= 50)
                         {
                             _asyncSequenceStep++;
                             ;
                         }
-                        else
-                        {
-                            _asyncSequenceStep = _asyncWhileEndAnchor;
-                            ;
-                        }
                     };
-                };
-                ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/   /*////////////////////////////////////*/
-                {}; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/ /*////////////////////////////////////*/
-                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/                             /*////////////////////////////////////*/
+                ; /* Wait for button release*/ /*////////////////////////////////////*/ /*///////// Begin while-loop /////////*/ /*////////////////////////////////////*/
                 {
+                    static int _asyncWhileStartAnchor = 0;
+                    ;
+                    static int _asyncWhileEndAnchor = 0;
+                    ;
+                    _asyncWhileStartAnchor = _asyncSequenceCurrentStep;
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                     {
-                        _asyncSequenceStep = _asyncWhileStartAnchor;
-                        ;
+                        {
+                            if (digitalRead(BUTTON_PIN))
+                            {
+                                _asyncSequenceStep++;
+                                ;
+                            }
+                            else
+                            {
+                                _asyncSequenceStep = _asyncWhileEndAnchor;
+                                ;
+                            }
+                        };
                     };
-                };
-                _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
+                    ; /*////////////////////////////////////*/ /*////// Begin while-loop task ///////*/   /*////////////////////////////////////*/
+                    {}; /*////////////////////////////////////*/ /*/////// End while-loop task ////////*/ /*////////////////////////////////////*/
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep = _asyncWhileStartAnchor;
+                            ;
+                        };
+                    };
+                    _asyncWhileEndAnchor = _asyncSequenceCurrentStep;
+                    if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                    {
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                        };
+                    };
+                    ;
+                } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/;
                 if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                 {
                     {
                         _asyncSequenceStep++;
                         ;
+                        {
+                            digitalWrite(LED_PIN, 0x0);
+                        };
+                    };
+                };
+                ; /* Debounce delay*/ /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                {
+                    {
+                        _asyncSequenceStep++;
+                        ;
+                        {
+                            _asyncSequenceDelayTimer = millis();
+                        };
                     };
                 };
                 ;
-            } /*////////////////////////////////////*/ /*////////// End while-loop //////////*/ /*////////////////////////////////////*/;
-            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
-            {
+                if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
                 {
-                    _asyncSequenceStep++;
-                    ;
                     {
-                        digitalWrite(LED_PIN, 0x0);
+                        if ((millis() - _asyncSequenceDelayTimer) >= 50)
+                        {
+                            _asyncSequenceStep++;
+                            ;
+                        }
                     };
-                };
-            };
-            ; /* Debounce delay*/ /*////////////////////////////////////*/ /*/////////// Begin delay ////////////*/ /*////////////////////////////////////*/
-            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
+                ;
+            }; /*////////////////////////////////////*/ /*//////// End sequences steps ///////*/ /*////////////////////////////////////*/
+            if (_asyncSequenceStep == _asyncSequenceCurrentStep)
             {
-                {
-                    _asyncSequenceStep++;
-                    ;
-                    {
-                        _asyncSequenceDelayTimer = millis();
-                    };
-                };
-            };
-            ;
-            if (_asyncSequenceStep == _asyncSequenceCurrentStep++)
+                _asyncSequenceStep = 0;
+            } /*////////////////////////////////////*/ /*//////// Begin dry run check ////////*/ /*////////////////////////////////////*/
+            if (_asyncDryRun)
             {
-                {
-                    if ((millis() - _asyncSequenceDelayTimer) >= 50)
-                    {
-                        _asyncSequenceStep++;
-                        ;
-                    }
-                };
-            }; /*////////////////////////////////////*/ /*//////////// End delay /////////////*/ /*////////////////////////////////////*/
-            ;
-        }; /*////////////////////////////////////*/ /*//////// End sequences steps ///////*/ /*////////////////////////////////////*/
-        if (_asyncSequenceStep == _asyncSequenceCurrentStep)
-        {
-            _asyncSequenceStep = 0;
+                _asyncDryRun = false;
+                continue;
+            }
+            else
+            {
+                break;
+            } /*////////////////////////////////////*/ /*//////// End dry run check /////////*/ /*////////////////////////////////////*/
         }
     } /*////////////////////////////////////*/ /*/////////// End sequence ///////////*/ /*////////////////////////////////////*/
 # 225 "C:\\Users\\noskn\\Desktop\\Software\\arduino-async-macros\\main\\main.ino"
